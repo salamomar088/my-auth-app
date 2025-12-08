@@ -1,0 +1,15 @@
+$primary: #6b90ff; //brand blue
+$primary-dark: #5275e8; //darker blue
+$gradient-start: #7ea8ff; // sky blue
+$gradient-end: #b5d3ff; //pastel blue
+
+$background-gradient: linear-gradient(135deg, $gradient-start, $gradient-end);
+
+$text-dark: #1b1b1b;
+$text-light: #666;
+$error: #d9534f;
+
+$radius: 10px;
+$card-radius: 16px;
+
+$card-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
