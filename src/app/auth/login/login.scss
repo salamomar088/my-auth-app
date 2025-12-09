@@ -3,56 +3,22 @@
 
 .login-container {
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-
-  background: linear-gradient(135deg, #c3d4ff, #eac6ff, #c1ffe4);
+  @include flex-center;
+  background: $auth-gradient;
 }
 
 .card {
-  width: 380px;
-  background: white;
-  padding: 32px;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  text-align: center;
-
-  h2 {
-    font-size: 1.7rem;
-    margin-bottom: 8px;
-  }
-
-  .subtitle {
-    font-size: 0.9rem;
-    color: gray;
-    margin-bottom: 20px;
-  }
+  @include auth-card;
 }
+
 label {
-  display: block;
-  text-align: left;
-  margin-top: 12px;
-  margin-bottom: 4px;
-  font-weight: 500;
-  font-size: 0.9rem;
+  @include form-label;
 }
 
 input {
-  width: 100%;
-  padding: 12px;
-  border-radius: 12px;
-  border: 1px solid #ddd;
-  font-size: 0.95rem;
-  background: #fafafa;
-
-  &:focus {
-    outline: none;
-    border-color: #5a30ff;
-    box-shadow: 0 0 0 3px rgba(90, 48, 255, 0.2);
-  }
+  @include input-style;
 }
+
 .password-wrapper {
   position: relative;
 
@@ -69,30 +35,18 @@ input {
     font-size: 18px;
   }
 }
+
 .forgot-password {
   display: block;
   margin: 10px 0;
   text-align: right;
   font-size: 0.85rem;
-  color: #5a30ff;
+  color: $primary;
   cursor: pointer;
 }
-.btn {
-  width: 100%;
-  margin-top: 20px;
-  padding: 14px;
-  background: #6a3bff;
-  color: white;
-  font-size: 1rem;
-  font-weight: bold;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: 0.2s;
 
-  &:hover {
-    background: #582bdb;
-  }
+.btn {
+  @include primary-button;
 }
 
 .bottom-text {
@@ -100,16 +54,14 @@ input {
   font-size: 0.9rem;
 
   a {
-    color: #5a30ff;
+    color: $primary;
     font-weight: bold;
     text-decoration: none;
   }
 }
+
 .error {
-  color: red;
-  font-size: 0.8rem;
-  text-align: left;
-  margin-top: 4px;
+  @include error-text;
 }
 
 .system-message {

@@ -1,4 +1,24 @@
-$primary: #6b90ff; //brand blue
+$primary-v2: #6b90ff; //brand blue
+$primary: #5a30ff; //indigo
+$primary-dark: #582bdb; //dark indigo
+$input-bg: #fafafa; //light gray
+$border-light: #ddd; //soft gary background
+$error-color: red;
 
 $text-dark: #1b1b1b;
-$error: #d9534f;
+
+$subtitle-color: gray;
+$text-small: 0.9rem;
+
+$card-width: 380px;
+$card-padding: 32px;
+$card-radius: 20px;
+$card-bg: #ffffff; //white color
+$card-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+
+$auth-gradient: linear-gradient(
+  135deg,
+  #c3d4ff,
+  #eac6ff,
+  #c1ffe4
+); // soft babyblue/light lavender/mint green
