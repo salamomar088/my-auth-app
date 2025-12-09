@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth';
+import { Alert } from '../../shared/alert';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +19,11 @@ export class Register {
   submited = false;
   message: string = '';
 
-  constructor(private formbuilder: FormBuilder, private authService: AuthService) {
+  constructor(
+    private formbuilder: FormBuilder,
+    private authService: AuthService,
+    private alert: Alert
+  ) {
     this.registerForm = this.formbuilder.group(
       {
         name: ['', [Validators.required]],
@@ -83,12 +88,10 @@ export class Register {
 
     this.authService.register(formData).subscribe({
       next: (res) => {
-        console.log('Registration Success:', res);
-        this.message = 'Registration successful!';
+        this.alert.success(res.message || 'Account created successfully!');
       },
       error: (err) => {
-        console.error('Registration Error:', err);
-        this.message = 'Registration failed. Please try again.';
+        this.alert.error(err.error?.message || 'Registration failed');
       },
     });
   }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth';
 import { Router } from '@angular/router';
+import { Alert } from '../../shared/alert';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class Login {
   constructor(
     private formbuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private alert: Alert
   ) {}
 
   ngOnInit() {
@@ -48,12 +50,12 @@ export class Login {
     this.authService.login(body).subscribe({
       next: (res: any) => {
         localStorage.setItem('token', res.token);
-        this.message = 'Login successful!';
+        this.alert.success(res.message || 'Login in successfully!');
         this.router.navigate(['/profile']);
       },
       error: (err) => {
         console.error('Login Error:', err);
-        this.message = 'Invalid credentials. Try again.';
+        this.alert.error(err.message || 'Invalid credentials. Try again.');
       },
     });
   }
