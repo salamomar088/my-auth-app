@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../auth';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Alert } from '../../shared/alert';
+import Swal from 'sweetalert2';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,26 +10,21 @@ import { Alert } from '../../shared/alert';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class Login {
+export class Login implements OnInit {
   showPassword = false;
-  showConfirm = false;
-  loginForm!: FormGroup;
   submited = false;
-  message: string = '';
+  message = '';
+  loginForm: any;
 
-  constructor(
-    private formbuilder: FormBuilder,
-    private authService: AuthService,
-    private router: Router,
-    private alert: Alert
-  ) {}
+  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {}
 
-  ngOnInit() {
-    this.loginForm = this.formbuilder.group({
+  ngOnInit(): void {
+    this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
   }
+
   get form() {
     return this.loginForm.controls;
   }
@@ -38,25 +33,26 @@ export class Login {
     this.submited = true;
 
     if (this.loginForm.invalid) {
-      this.loginForm.markAllAsTouched();
+      Swal.fire('Error', 'Please enter valid login details.', 'error');
       return;
     }
 
-    const body = {
-      email: this.loginForm.get('email')?.value,
-      password: this.loginForm.get('password')?.value,
-    };
-
-    this.authService.login(body).subscribe({
-      next: (res: any) => {
-        localStorage.setItem('token', res.token);
-        this.alert.success(res.message || 'Login in successfully!');
-        this.router.navigate(['/profile']);
-      },
-      error: (err) => {
-        console.error('Login Error:', err);
-        this.alert.error(err.message || 'Invalid credentials. Try again.');
-      },
-    });
+    this.auth
+      .login({
+        email: this.form['email'].value!,
+        password: this.form['password'].value!,
+      })
+      .subscribe({
+        next: () => {
+          Swal.fire('Welcome!', 'Login successful.', 'success');
+          this.router.navigate(['/profile']);
+        },
+        error: (err) => {
+          Swal.fire('Login Failed', err.error.message || 'Invalid credentials', 'error');
+        },
+      });
+  }
+  goToRegister() {
+    this.router.navigate(['/register']);
   }
 }

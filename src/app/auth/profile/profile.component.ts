@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -13,13 +13,12 @@ export class Profile implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.authService.getprofile().subscribe({
-      next: (res) => {
+    this.authService.getProfile().subscribe({
+      next: (res: any) => {
         this.user = res;
-        console.log('Profile loaded:', res);
       },
-      error: (err) => {
-        console.error('Profile load error:', err);
+      error: (err: any) => {
+        console.error(err);
       },
     });
   }

@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../auth';
-import { Alert } from '../../shared/alert';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-register',
@@ -11,28 +11,27 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.scss'],
 })
 export class Register {
-  showPassword = false;
-  showConfirm = false;
-
   registerForm!: FormGroup;
   previewUrl: string | ArrayBuffer | null = null;
-  selectedFile: File | null = null;
+  selectedImage!: File;
   submited = false;
-  message: string = '';
+
+  showPassword = false;
+  showConfirm = false;
+  message = '';
 
   constructor(
-    private formbuilder: FormBuilder,
-    private authService: AuthService,
-    private alert: Alert,
-    private router: Router
+    private fb: FormBuilder,
+    private auth: AuthService,
+    private router: Router,
+    private cd: ChangeDetectorRef
   ) {
-    this.registerForm = this.formbuilder.group(
+    this.registerForm = this.fb.group(
       {
-        name: ['', [Validators.required]],
+        name: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(8)]],
-        confirmPassword: ['', [Validators.required]],
-        profileImage: [null],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ['', Validators.required],
       },
       {
         validators: this.passwordMatchValidator,
@@ -40,34 +39,28 @@ export class Register {
     );
   }
 
-  passwordMatchValidator(form: FormGroup) {
-    const password = form.get('password')?.value;
-    const confirm = form.get('confirmPassword')?.value;
-
-    if (password && confirm && password !== confirm) {
-      return { passwordMismatch: true };
-    }
-    return null;
-  }
-
   get form() {
     return this.registerForm.controls;
   }
 
-  onFileSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (!input.files || input.files.length === 0) return;
+  passwordMatchValidator(form: FormGroup) {
+    return form.get('password')?.value === form.get('confirmPassword')?.value
+      ? null
+      : { passwordMismatch: true };
+  }
 
-    const file = input.files[0];
-    this.selectedFile = file;
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (!file) return;
 
-    this.registerForm.patchValue({ profileImage: file });
-    this.registerForm.get('profileImage')?.updateValueAndValidity();
+    this.selectedImage = file;
 
     const reader = new FileReader();
     reader.onload = () => {
       this.previewUrl = reader.result;
+      this.cd.detectChanges();
     };
+
     reader.readAsDataURL(file);
   }
 
@@ -75,26 +68,31 @@ export class Register {
     this.submited = true;
 
     if (this.registerForm.invalid) {
-      this.registerForm.markAllAsTouched();
+      Swal.fire('Error', 'Please fill all fields correctly.', 'error');
       return;
     }
 
     const formData = new FormData();
-    formData.append('name', this.registerForm.get('name')?.value);
-    formData.append('email', this.registerForm.get('email')?.value);
-    formData.append('password', this.registerForm.get('password')?.value);
+    formData.append('name', this.form['name'].value);
+    formData.append('email', this.form['email'].value);
+    formData.append('password', this.form['password'].value);
 
-    if (this.selectedFile) {
-      formData.append('profileImage', this.selectedFile);
+    if (this.selectedImage) {
+      formData.append('avatar', this.selectedImage);
     }
 
-    this.authService.register(formData).subscribe({
-      next: (res) => {
-        this.alert.success(res.message || 'Account created successfully!');
+    this.auth.register(formData).subscribe({
+      next: () => {
+        Swal.fire('Success', 'Account created successfully!', 'success');
+        this.router.navigate(['/login']);
       },
       error: (err) => {
-        this.alert.error(err.error?.message || 'Registration failed');
+        Swal.fire('Registration Failed', err.error.message || 'Error', 'error');
       },
     });
+  }
+
+  goToLogin() {
+    this.router.navigate(['/login']);
   }
 }

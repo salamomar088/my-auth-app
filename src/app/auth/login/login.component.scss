@@ -69,3 +69,10 @@ input {
   font-size: 0.9rem;
   font-weight: 600;
 }
+.register-link {
+  @include route-link;
+
+  &:hover {
+    text-decoration: underline !important;
+  }
+}

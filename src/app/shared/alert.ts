@@ -10,7 +10,7 @@ export class Alert {
       icon: 'info',
       title: 'Information',
       text: message,
-      timer: 1500,
+      timer: 2000,
       showConfirmButton: true,
     });
   }
@@ -19,7 +19,7 @@ export class Alert {
       icon: 'success',
       title: 'Success',
       text: message,
-      timer: 1000,
+      timer: 2500,
       showConfirmButton: false,
     });
   }
@@ -28,7 +28,7 @@ export class Alert {
       icon: 'error',
       title: 'Error',
       text: message,
-      timer: 1000,
+      timer: 3000,
       showConfirmButton: true,
     });
   }

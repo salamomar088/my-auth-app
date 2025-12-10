@@ -64,3 +64,11 @@
   text-align: left;
   margin-top: 4px;
 }
+
+@mixin route-link {
+  cursor: pointer;
+  color: $primary;
+  font-weight: 600;
+  text-decoration: none;
+  transition: text-decoration 0.2s ease;
+}

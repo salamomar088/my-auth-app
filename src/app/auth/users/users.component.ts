@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-users',
@@ -16,10 +16,9 @@ export class Users implements OnInit {
     this.authService.getAllUsers().subscribe({
       next: (res: any) => {
         this.users = res;
-        console.log('Users:', res);
       },
-      error: (err) => {
-        console.error('Users load error:', err);
+      error: (err: any) => {
+        console.error(err);
       },
     });
   }
