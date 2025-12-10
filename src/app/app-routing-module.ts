@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { Register } from './auth/register/register';
-import { Login } from './auth/login/login';
-import { Profile } from './auth/profile/profile';
-import { Users } from './auth/users/users';
+import { Register } from './auth/register/register.component';
+import { Login } from './auth/login/login.component';
+import { Profile } from './auth/profile/profile.component';
+import { Users } from './auth/users/users.component';
 import { AuthGuard } from './auth/auth-guard';
 
 const routes: Routes = [

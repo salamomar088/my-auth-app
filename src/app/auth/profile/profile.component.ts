@@ -3,8 +3,9 @@ import { AuthService } from '../auth';
 
 @Component({
   selector: 'app-profile',
-  templateUrl: './profile.html',
-  styleUrls: ['./profile.scss'],
+  standalone: false,
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.componenet.scss'],
 })
 export class Profile implements OnInit {
   user: any = null;

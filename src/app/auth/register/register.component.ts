@@ -6,8 +6,8 @@ import { Alert } from '../../shared/alert';
 @Component({
   selector: 'app-register',
   standalone: false,
-  templateUrl: './register.html',
-  styleUrls: ['./register.scss'],
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss'],
 })
 export class Register {
   showPassword = false;

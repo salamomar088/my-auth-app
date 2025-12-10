@@ -3,8 +3,9 @@ import { AuthService } from '../auth';
 
 @Component({
   selector: 'app-users',
-  templateUrl: './users.html',
-  styleUrls: ['./users.scss'],
+  standalone: false,
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.scss'],
 })
 export class Users implements OnInit {
   users: any[] = [];

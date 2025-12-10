@@ -7,8 +7,8 @@ import { Alert } from '../../shared/alert';
 @Component({
   selector: 'app-login',
   standalone: false,
-  templateUrl: './login.html',
-  styleUrls: ['./login.scss'],
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
 })
 export class Login {
   showPassword = false;

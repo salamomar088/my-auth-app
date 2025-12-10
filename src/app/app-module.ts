@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+
+import { App } from './app.componenet';
 import { AppRoutingModule } from './app-routing-module';
-import { App } from './app';
 import { AuthModule } from './auth/auth-module';
 import { AuthInterceptor } from './auth/auth-interceptor';
 
 @NgModule({
   declarations: [App],
-  imports: [BrowserModule, AppRoutingModule, AuthModule, HttpClientModule],
+  imports: [BrowserModule, RouterModule, AppRoutingModule, AuthModule, HttpClientModule],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
