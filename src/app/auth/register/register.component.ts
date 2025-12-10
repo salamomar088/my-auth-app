@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth';
 import { Alert } from '../../shared/alert';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +23,8 @@ export class Register {
   constructor(
     private formbuilder: FormBuilder,
     private authService: AuthService,
-    private alert: Alert
+    private alert: Alert,
+    private router: Router
   ) {
     this.registerForm = this.formbuilder.group(
       {

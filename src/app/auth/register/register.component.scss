@@ -71,3 +71,77 @@ input {
   font-size: 0.9rem;
   font-weight: 600;
 }
+
+.avatar-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  border: 2px dashed $border-light;
+  background-color: $input-bg;
+  transition: 0.2s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    border-color: $primary;
+    background-color: lighten($input-bg, 4%);
+
+    .upload-icon {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: $input-bg;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $border-light;
+    font-size: 28px;
+  }
+
+  .upload-icon {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    background: $primary;
+    color: white;
+    padding: 6px;
+    border-radius: 50%;
+    font-size: 14px;
+    opacity: 0;
+    transform: translateY(5px);
+    transition: 0.2s ease;
+    pointer-events: none;
+  }
+}
+
+.login-link {
+  cursor: pointer;
+  color: $primary;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
