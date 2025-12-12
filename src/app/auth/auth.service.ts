@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { TokenService } from './token.service';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -7,14 +9,18 @@ import { HttpClient } from '@angular/common/http';
 export class AuthService {
   private api = 'http://localhost:8000/api/v1';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   register(data: FormData) {
     return this.http.post(`${this.api}/auth/register`, data);
   }
 
   login(payload: { email: string; password: string }) {
-    return this.http.post(`${this.api}/auth/login`, payload);
+    return this.http.post<any>(`${this.api}/auth/login`, payload).pipe(
+      tap((res) => {
+        this.tokenService.setToken(res.token);
+      })
+    );
   }
 
   getProfile() {
@@ -26,14 +32,14 @@ export class AuthService {
   }
 
   getToken() {
-    return localStorage.getItem('token');
+    return this.tokenService.getToken();
   }
 
   isAuthenticated() {
-    return !!localStorage.getItem('token');
+    return this.tokenService.isAuthenticated();
   }
 
   logout() {
-    localStorage.removeItem('token');
+    this.tokenService.clearToken();
   }
 }
