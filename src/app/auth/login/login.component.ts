@@ -44,7 +44,7 @@ export class Login implements OnInit {
       })
       .subscribe({
         next: () => {
-          Swal.fire('Welcome!', 'Login successful.', 'success');
+          Swal.fire('Welcome aboard!', 'Login successful.', 'success');
           this.router.navigate(['/profile']);
         },
         error: (err) => {

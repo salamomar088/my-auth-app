@@ -1,75 +1,78 @@
 <div class="login-container">
-  <div class="card">
-    <h2>Welcome Back</h2>
-    <p class="subtitle">Enter your credentials to continue</p>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-10 col-md-8 col-lg-6">
+        <div class="card">
+          <h2>Welcome Back</h2>
+          <p class="subtitle">Enter your credentials to continue</p>
 
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <label>Email</label>
-      <input type="email" formControlName="email" placeholder="your.email@gmail.com" />
-      <div class="error" *ngIf="submited && form['email'].errors">
-        <span *ngIf="form['email'].errors['required']">Email is required.</span>
-        <span *ngIf="form['email'].errors['email']">Invalid email format.</span>
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <label>Email</label>
+            <input type="email" formControlName="email" placeholder="your.email@gmail.com" />
+            <div class="error" *ngIf="submited && form['email'].errors">
+              <span *ngIf="form['email'].errors['required']">Email is required.</span>
+              <span *ngIf="form['email'].errors['email']">Invalid email format.</span>
+            </div>
+
+            <label>Password</label>
+            <div class="password-wrapper">
+              <input
+                [type]="showPassword ? 'text' : 'password'"
+                formControlName="password"
+                placeholder="Enter your password"
+              />
+              <span class="toggle-icon" (click)="showPassword = !showPassword">
+                <svg
+                  *ngIf="showPassword"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="icon"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13.875 18.825A10.05 10.05 0 0112 19c-4.477 0-8.268-2.943-9.542-7"
+                  />
+                </svg>
+
+                <svg
+                  *ngIf="!showPassword"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="icon"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+              </span>
+            </div>
+
+            <div class="error" *ngIf="submited && form['password'].invalid">
+              Password is required.
+            </div>
+
+            <span class="forgot-password">Forgot password?</span>
+
+            <button type="submit" class="btn">Log In</button>
+
+            <p class="system-message">{{ message }}</p>
+          </form>
+
+          <p class="bottom-text">
+            Don't have an account?
+            <a class="register-link" (click)="goToRegister()">Register</a>
+          </p>
+        </div>
       </div>
-
-      <label>Password</label>
-      <div class="password-wrapper">
-        <input
-          [type]="showPassword ? 'text' : 'password'"
-          formControlName="password"
-          placeholder="Enter your password"
-        />
-        <span class="toggle-icon" (click)="showPassword = !showPassword">
-          <svg
-            *ngIf="showPassword"
-            xmlns="http://www.w3.org/2000/svg"
-            class="icon"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M13.875 18.825A10.05 10.05 0 0112 19c-4.477 0-8.268-2.943-9.542-7a9.97 9.97 0 012.72-4.568M6.2 6.2A9.956 9.956 0 0112 5c4.477 0 8.268 2.943 9.542 7a9.97 9.97 0 01-2.645 4.59M6.2 6.2l11.6 11.6M6.2 6.2L4 4m13.8 13.8L20 20"
-            />
-          </svg>
-
-          <svg
-            *ngIf="!showPassword"
-            xmlns="http://www.w3.org/2000/svg"
-            class="icon"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-            />
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M2.458 12C3.732 7.943 7.523 5 12 5s8.268 2.943 9.542 7c-1.274 4.057-5.065 7-9.542 7S3.732 16.057 2.458 12z"
-            />
-          </svg>
-        </span>
-      </div>
-
-      <div class="error" *ngIf="submited && form['password'].invalid">Password is required.</div>
-      <span class="forgot-password">Forgot password?</span>
-
-      <button type="submit" class="btn">Log In</button>
-
-      <p class="system-message">{{ message }}</p>
-    </form>
-
-    <p class="bottom-text">
-      Don't have an account?
-      <a class="register-link" (click)="goToRegister()">Register</a>
-    </p>
+    </div>
   </div>
 </div>

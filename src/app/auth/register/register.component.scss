@@ -130,3 +130,32 @@ input {
     text-decoration: underline !important;
   }
 }
+
+@media (max-width: 576px) {
+  .register-container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card {
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .card h2,
+  .card .subtitle {
+    flex-shrink: 0;
+  }
+  .avatar-wrapper,
+  .card form {
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+  .card form button,
+  .bottom-text {
+    flex-shrink: 0;
+  }
+}
