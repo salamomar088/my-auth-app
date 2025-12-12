@@ -33,7 +33,7 @@ export class Login implements OnInit {
     this.submited = true;
 
     if (this.loginForm.invalid) {
-      Swal.fire('Error', 'Please enter valid login details.', 'error');
+      Swal.fire('Error Occurred', 'Please enter valid login details.', 'error');
       return;
     }
 
@@ -48,10 +48,11 @@ export class Login implements OnInit {
           this.router.navigate(['/profile']);
         },
         error: (err) => {
-          Swal.fire('Login Failed', err.error.message || 'Invalid credentials', 'error');
+          Swal.fire('Error', err.error?.message || 'Error Occured', 'error');
         },
       });
   }
+
   goToRegister() {
     this.router.navigate(['/register']);
   }

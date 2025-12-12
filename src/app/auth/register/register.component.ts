@@ -87,7 +87,7 @@ export class Register {
         this.router.navigate(['/login']);
       },
       error: (err) => {
-        Swal.fire('Registration Failed', err.error.message || 'Error', 'error');
+        Swal.fire('Registration Failed', err.error.message || 'Error Occured', 'error');
       },
     });
   }

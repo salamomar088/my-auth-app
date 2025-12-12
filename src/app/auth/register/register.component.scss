@@ -87,20 +87,10 @@ input {
   cursor: pointer;
   border: 2px dashed $border-light;
   background-color: $input-bg;
-  transition: 0.2s ease-in-out;
+  transition: border-color 0.2s ease;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  &:hover {
-    border-color: $primary;
-    background-color: lighten($input-bg, 4%);
-
-    .upload-icon {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
 
   img {
     width: 100%;
@@ -109,29 +99,28 @@ input {
   }
 
   .placeholder {
-    width: 100%;
-    height: 100%;
-    background-color: $input-bg;
+    position: absolute;
+    inset: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     color: $border-light;
-    font-size: 28px;
+    font-size: 32px;
   }
 
-  .upload-icon {
-    position: absolute;
-    bottom: 6px;
-    right: 6px;
-    background: $primary;
-    color: white;
-    padding: 6px;
-    border-radius: 50%;
-    font-size: 14px;
-    opacity: 0;
-    transform: translateY(5px);
-    transition: 0.2s ease;
+  .camera-icon {
     pointer-events: none;
+  }
+
+  &:hover {
+    border-color: $primary;
+  }
+  &.has-image {
+    border-style: solid;
+
+    &:hover {
+      border-color: $primary; // only highlight border
+    }
   }
 }
 

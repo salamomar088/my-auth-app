@@ -4,12 +4,12 @@
     <p class="subtitle">Fill in your details to register</p>
 
     <div class="avatar-wrapper">
-      <div class="avatar" (click)="fileInput.click()">
-        <img *ngIf="previewUrl; else placeholder" [src]="previewUrl" alt="Avatar" />
-        <ng-template #placeholder>
-          <div class="placeholder"></div>
-        </ng-template>
-        <div class="upload-icon">📷</div>
+      <div class="avatar" [class.has-image]="previewUrl" (click)="fileInput.click()">
+        <img *ngIf="previewUrl" [src]="previewUrl" alt="Avatar" />
+
+        <div class="placeholder" *ngIf="!previewUrl">
+          <span class="camera-icon">📷</span>
+        </div>
       </div>
 
       <input type="file" #fileInput accept="image/*" hidden (change)="onFileSelected($event)" />
