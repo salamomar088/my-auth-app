@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { TokenService } from './token.service';
+import { TokenService } from '../core/interceptor/token.interceptor';
 import { tap } from 'rxjs/operators';
 
 @Injectable({

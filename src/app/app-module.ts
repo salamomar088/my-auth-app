@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { App } from './app.componenet';
 import { AppRoutingModule } from './app-routing-module';
 import { AuthModule } from './auth/auth-module';
-import { AuthInterceptor } from './auth/auth-interceptor';
+import { AuthInterceptor } from './core/interceptor/auth-interceptor';
 
 @NgModule({
   declarations: [App],

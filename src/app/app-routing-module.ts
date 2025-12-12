@@ -5,7 +5,7 @@ import { Register } from './auth/register/register.component';
 import { Login } from './auth/login/login.component';
 import { Profile } from './auth/profile/profile.component';
 import { Users } from './auth/users/users.component';
-import { AuthGuard } from './auth/auth-guard';
+import { AuthGuard } from './core/guards/auth-guard';
 
 const routes: Routes = [
   { path: 'login', component: Login },
