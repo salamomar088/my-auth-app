@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { App } from './app.componenet';
 import { AppRoutingModule } from './app-routing-module';
 import { AuthModule } from './auth/auth-module';
-import { AuthInterceptor } from './core/interceptor/auth-interceptor';
+import { TokenInterceptor } from './core/interceptor/auth-interceptor';
 
 @NgModule({
   declarations: [App],
@@ -14,7 +14,7 @@ import { AuthInterceptor } from './core/interceptor/auth-interceptor';
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
+      useClass: TokenInterceptor,
       multi: true,
     },
   ],

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { TokenService } from '../core/interceptor/token.interceptor';
 import { tap } from 'rxjs/operators';
 
 @Injectable({
@@ -8,8 +7,9 @@ import { tap } from 'rxjs/operators';
 })
 export class AuthService {
   private api = 'http://localhost:8000/api/v1';
+  private readonly STORAGE_KEY = 'auth_token';
 
-  constructor(private http: HttpClient, private tokenService: TokenService) {}
+  constructor(private http: HttpClient) {}
 
   register(data: FormData) {
     return this.http.post(`${this.api}/auth/register`, data);
@@ -18,7 +18,7 @@ export class AuthService {
   login(payload: { email: string; password: string }) {
     return this.http.post<any>(`${this.api}/auth/login`, payload).pipe(
       tap((res) => {
-        this.tokenService.setToken(res.token);
+        this.setToken(res.token);
       })
     );
   }
@@ -31,15 +31,18 @@ export class AuthService {
     return this.http.get(`${this.api}/users`);
   }
 
-  getToken() {
-    return this.tokenService.getToken();
+  getToken(): string | null {
+    return sessionStorage.getItem(this.STORAGE_KEY);
   }
 
-  isAuthenticated() {
-    return this.tokenService.isAuthenticated();
+  isAuthenticated(): boolean {
+    return !!sessionStorage.getItem(this.STORAGE_KEY);
   }
 
-  logout() {
-    this.tokenService.clearToken();
+  logout(): void {
+    sessionStorage.removeItem(this.STORAGE_KEY);
+  }
+  private setToken(token: string): void {
+    sessionStorage.setItem(this.STORAGE_KEY, token);
   }
 }
