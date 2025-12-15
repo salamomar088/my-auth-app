@@ -1,5 +1,18 @@
-<div>
-  <h2>Your Profile</h2>
+<div class="profile-container">
+  <div *ngIf="loading" class="state loading">Loading profile...</div>
 
-  <pre>{{ user | json }}</pre>
+  <div *ngIf="error && !loading" class="state error">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && user" class="profile-card">
+    <div class="avatar">
+      <img [src]="user.profileImage || 'https://i.pravatar.cc/150'" alt="Avatar" />
+    </div>
+
+    <h2>{{ user.name }}</h2>
+    <p class="email">{{ user.email }}</p>
+
+    <button class="logout-btn" (click)="logout()">Logout</button>
+  </div>
 </div>

@@ -1,25 +1,39 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
   standalone: false,
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.componenet.scss'],
+  styleUrls: ['./profile.component.scss'],
 })
 export class Profile implements OnInit {
   user: any = null;
+  loading = false;
+  error: string | null = null;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
+    this.loadProfile();
+  }
+  loadProfile(): void {
+    this.loading = true;
+    this.error = null;
     this.authService.getProfile().subscribe({
-      next: (res: any) => {
+      next: (res) => {
         this.user = res;
+        this.loading = false;
       },
       error: (err: any) => {
-        console.error(err);
+        this.error = err.error?.message || 'Failed to load profile';
+        this.loading = false;
       },
     });
+  }
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/auth/login']);
   }
 }
