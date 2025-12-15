@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-register',
@@ -86,7 +86,7 @@ export class Register {
         Swal.fire('Success', 'Account created successfully!', 'success');
         this.router.navigate(['/login']);
       },
-      error: (err) => {
+      error: (err: any) => {
         Swal.fire('Registration Failed', err.error.message || 'Error Occured', 'error');
       },
     });
