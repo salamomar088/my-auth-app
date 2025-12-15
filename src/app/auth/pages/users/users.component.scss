@@ -1,0 +1,106 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.users-container {
+  min-height: 100vh;
+  padding: 28px 18px;
+  background: #f5f7fb;
+}
+
+.header {
+  max-width: 980px;
+  margin: 0 auto 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  h2 {
+    margin: 0;
+    font-size: 1.35rem;
+  }
+}
+
+.refresh {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  background: #2f6fff;
+  color: #fff;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.state {
+  max-width: 980px;
+  margin: 18px auto 0;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+
+  &.loading {
+    color: #444;
+  }
+  &.error {
+    color: #d9534f;
+  }
+  &.empty {
+    color: #666;
+  }
+}
+
+.table-card {
+  max-width: 980px;
+  margin: 18px auto 0;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  thead th {
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #444;
+    background: #f0f3fb;
+    padding: 14px 16px;
+  }
+
+  tbody td {
+    padding: 14px 16px;
+    border-top: 1px solid #eef0f6;
+    font-size: 0.95rem;
+    color: #222;
+  }
+
+  tbody tr:hover {
+    background: #fafbff;
+  }
+
+  .email {
+    color: #555;
+  }
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  background: #eef2ff;
+  color: #2f4cff;
+
+  &.admin {
+    background: #ffecec;
+    color: #d63a3a;
+  }
+}

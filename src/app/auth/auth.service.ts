@@ -15,10 +15,12 @@ export class AuthService {
     return this.http.post(`${this.api}/auth/register`, data);
   }
 
-  login(payload: { email: string; password: string }) {
-    return this.http.post<any>(`${this.api}/auth/login`, payload).pipe(
+  login(credentials: any) {
+    return this.http.post<any>(`${this.api}/auth/login`, credentials).pipe(
       tap((res) => {
-        this.setToken(res.token);
+        if (res?.token) {
+          this.setToken(res.token);
+        }
       })
     );
   }

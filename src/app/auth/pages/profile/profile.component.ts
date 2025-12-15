@@ -22,7 +22,7 @@ export class Profile implements OnInit {
     this.loading = true;
     this.error = null;
     this.authService.getProfile().subscribe({
-      next: (res) => {
+      next: (res: any) => {
         this.user = res;
         this.loading = false;
       },

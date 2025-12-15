@@ -1,3 +1,42 @@
-<h2>Users List</h2>
+<div class="users-container">
+  <div class="header">
+    <h2>Users</h2>
+    <button class="refresh" (click)="loadUsers()" [disabled]="loading">Refresh</button>
+  </div>
+  <div *ngIf="loading" class="state loading">Loading users...</div>
+  <div *ngIf="error && !loading" class="state error">
+    {{ error }}
+  </div>
+  <div *ngIf="!loading && !error && users.length === 0" class="state empty">No users found.</div>
+  <div *ngIf="!loading && !error && users.length > 0" class="table-card">
+    <table class="users-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Created At</th>
+        </tr>
+      </thead>
 
-<pre>{{ users | json }}</pre>
+      <tbody>
+        <tr *ngFor="let u of users; trackBy: trackById">
+          <td class="name">
+            {{ u.name || '-' }}
+          </td>
+          <td class="email">
+            {{ u.email || '-' }}
+          </td>
+          <td>
+            <span class="badge" [class.admin]="(u.role || '').toLowerCase() === 'admin'">
+              {{ u.role || 'user' }}
+            </span>
+          </td>
+          <td>
+            {{ formatDate(u.createdAt) }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
