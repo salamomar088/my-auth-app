@@ -8,12 +8,15 @@ import { Users } from './auth/pages/users/users.component';
 import { AuthGuard } from './core/guards/auth-guard';
 
 const routes: Routes = [
-  { path: 'login', component: Login },
-  { path: 'register', component: Register },
-  { path: 'profile', component: Profile, canActivate: [AuthGuard] },
-  { path: 'users', component: Users, canActivate: [AuthGuard] },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'login' },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth-module').then((m) => m.AuthModule),
+  },
+  {
+    path: '',
+    redirectTo: 'auth/login',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({

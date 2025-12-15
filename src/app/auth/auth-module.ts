@@ -7,10 +7,11 @@ import { Login } from './pages/login/login.component';
 import { Register } from './pages/register/register.component';
 import { Profile } from './pages/profile/profile.component';
 import { Users } from './pages/users/users.component';
+import { AuthRoutingModule } from './auth-routing-module';
 
 @NgModule({
   declarations: [Login, Register, Profile, Users],
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, AuthRoutingModule],
   providers: [AuthService],
 })
 export class AuthModule {}
