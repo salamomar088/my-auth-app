@@ -3,13 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
-import { App } from './app.componenet';
+import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing-module';
 import { AuthModule } from './auth/auth-module';
 import { TokenInterceptor } from './core/interceptor/auth-interceptor';
 
 @NgModule({
-  declarations: [App],
+  declarations: [AppComponent],
   imports: [BrowserModule, RouterModule, AppRoutingModule, AuthModule, HttpClientModule],
   providers: [
     {
@@ -18,6 +18,6 @@ import { TokenInterceptor } from './core/interceptor/auth-interceptor';
       multi: true,
     },
   ],
-  bootstrap: [App],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
