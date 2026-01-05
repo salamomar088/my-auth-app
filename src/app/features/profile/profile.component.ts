@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
+import { IUsers } from '../../shared/interfaces/user.interface';
 
 @Component({
   selector: 'app-profile',
@@ -8,8 +9,8 @@ import { Router } from '@angular/router';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
-export class Profile implements OnInit {
-  user: any = null;
+export class ProfileComponent implements OnInit {
+  user!: IUsers;
   loading = false;
   error: string | null = null;
 
@@ -22,7 +23,7 @@ export class Profile implements OnInit {
     this.loading = true;
     this.error = null;
     this.authService.getProfile().subscribe({
-      next: (res: any) => {
+      next: (res: IUsers | any) => {
         this.user = res;
         this.loading = false;
       },
