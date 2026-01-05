@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
+import { IUsers } from '../../shared/interfaces/user.interface';
 
 @Component({
   selector: 'app-users',
@@ -7,8 +8,8 @@ import { AuthService } from '../../auth/auth.service';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
 })
-export class Users implements OnInit {
-  users: any[] = [];
+export class UsersComponent implements OnInit {
+  users: IUsers[] = [];
   loading = false;
   error: string | null = null;
 
@@ -23,7 +24,7 @@ export class Users implements OnInit {
     this.error = null;
 
     this.authService.getAllUsers().subscribe({
-      next: (res: any) => {
+      next: (res: IUsers[] | any) => {
         this.users = Array.isArray(res) ? res : res?.users ?? res?.data ?? [];
         this.loading = false;
       },
@@ -34,8 +35,8 @@ export class Users implements OnInit {
     });
   }
 
-  trackById(_: number, user: any) {
-    return user?.id ?? user?._id ?? user?.email;
+  trackById(_: number, user: IUsers) {
+    return user.id;
   }
 
   formatDate(value: any): string {
