@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
-import { IUsers } from '../../shared/interfaces/user.interface';
+import { IUsers } from '../../core/interfaces/user.interface';
 
 @Component({
   selector: 'app-profile',
