@@ -25,7 +25,8 @@ export class UsersComponent implements OnInit {
 
     this.authService.getAllUsers().subscribe({
       next: (res: IUsers[] | any) => {
-        this.users = Array.isArray(res) ? res : res?.users ?? res?.data ?? [];
+        const data = Array.isArray(res) ? res : res?.users ?? res?.data;
+        this.users = data ?? [];
         this.loading = false;
       },
       error: (err: any) => {

@@ -10,7 +10,7 @@ import { IUsers } from '../../core/interfaces/user.interface';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  user!: IUsers;
+  user: IUsers | null = null;
   loading = false;
   error: string | null = null;
 
