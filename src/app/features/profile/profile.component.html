@@ -11,7 +11,7 @@
     <div class="profile-card profile-layout" *ngIf="user">
       <div class="avatar">
         <img
-          *ngIf="user?.profileImage; else avatarFallback"
+          *ngIf="user.profileImage; else avatarFallback"
           [src]="user.profileImage"
           alt="Profile Avatar"
         />
@@ -40,9 +40,9 @@
           <div class="row">
             <span>Profile Image</span>
 
-            <span *ngIf="!user?.hasProfileImage">No</span>
+            <span *ngIf="!user.hasProfileImage">No</span>
 
-            <button *ngIf="user?.hasProfileImage" class="view-btn" (click)="openImage()">
+            <button *ngIf="user.hasProfileImage" class="view-btn" (click)="openImage()">
               View
             </button>
           </div>

@@ -29,8 +29,14 @@ export class AuthService {
     return this.http.get(`${this.api}/users/profile`);
   }
 
-  getAllUsers() {
-    return this.http.get(`${this.api}/users`);
+  getAllUsers(params?: { name?: string; limit?: number; created_after?: string }) {
+    return this.http.get(`${this.api}/users`, {
+      params: {
+        ...(params?.name ? { name: params.name } : {}),
+        ...(params?.limit ? { limit: params.limit } : {}),
+        ...(params?.created_after ? { created_after: params.created_after } : {}),
+      },
+    });
   }
 
   getToken(): string | null {
