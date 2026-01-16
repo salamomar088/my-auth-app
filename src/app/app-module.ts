@@ -9,10 +9,18 @@ import { AppRoutingModule } from './app-routing-module';
 import { AuthModule } from './auth/auth-module';
 import { TokenInterceptor } from './core/interceptor/auth-interceptor';
 import { GlobalErrorHandler } from './core/services/global-error-handler';
+import { SharedModule } from './shared/shared-module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, RouterModule, AppRoutingModule, AuthModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    RouterModule,
+    AppRoutingModule,
+    AuthModule,
+    HttpClientModule,
+    SharedModule,
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

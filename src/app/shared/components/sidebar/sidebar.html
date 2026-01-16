@@ -1,0 +1,12 @@
+<aside class="sidebar" *ngIf="isLoggedIn()">
+  <h2 class="logo">MyAuthApp</h2>
+
+  <nav>
+    <a routerLink="/profile" routerLinkActive="active">Profile</a>
+    <a routerLink="/users" routerLinkActive="active">Users</a>
+    <a href="/api-docs" target="_blank">Swagger Docs</a>
+    <a routerLink="/dashboard" class="disabled">Dashboard</a>
+  </nav>
+
+  <button class="logout" (click)="logout()">Logout</button>
+</aside>
