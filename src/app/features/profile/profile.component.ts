@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { IUsers } from '../../core/interfaces/user.interface';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-profile',
@@ -11,18 +12,21 @@ import { IUsers } from '../../core/interfaces/user.interface';
 })
 export class ProfileComponent implements OnInit {
   user: IUsers | null = null;
-  loading = false;
+  loading = true;
   error: string | null = null;
   showImage = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.loadProfile();
   }
 
   loadProfile(): void {
-    this.loading = true;
     this.error = null;
 
     this.authService.getProfile().subscribe({
@@ -36,6 +40,7 @@ export class ProfileComponent implements OnInit {
         };
 
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (err: any) => {
         this.error = err.error?.message || 'Failed to load profile';
