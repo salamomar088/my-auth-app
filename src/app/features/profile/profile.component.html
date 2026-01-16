@@ -1,18 +1,45 @@
-<div class="profile-container">
-  <div *ngIf="loading" class="state loading">Loading profile...</div>
-
-  <div *ngIf="error && !loading" class="state error">
-    {{ error }}
+<div class="profile-page">
+  <div class="profile-card" *ngIf="loading">
+    <p class="sub">Loading profile…</p>
   </div>
 
-  <div *ngIf="!loading && user" class="profile-card">
+  <div class="profile-card" *ngIf="!loading && error">
+    <p class="sub">{{ error }}</p>
+  </div>
+
+  <div class="profile-card" *ngIf="!loading && user">
     <div class="avatar">
-      <img [src]="user.profileImage || 'https://i.pravatar.cc/150'" alt="Avatar" />
+      <button *ngIf="user.hasProfileImage && !showImage" class="view-image" (click)="openImage()">
+        View Profile Image
+      </button>
+      <ng-container *ngIf="showImage">
+        <a [href]="user.profileImage!" target="_blank" rel="noopener">
+          <img [src]="user.profileImage!" alt="Profile Image" loading="lazy" decoding="async" />
+        </a>
+      </ng-container>
+
+      <span *ngIf="!user.hasProfileImage" class="no-image"> No profile image </span>
     </div>
 
-    <h2>{{ user.name }}</h2>
-    <p class="email">{{ user.email }}</p>
+    <h2 class="name">{{ user.name }}</h2>
 
-    <button class="logout-btn" (click)="logout()">Logout</button>
+    <div class="info">
+      <div class="row">
+        <span>Member ID</span>
+        <span>{{ user.id }}</span>
+      </div>
+
+      <div class="row">
+        <span>Email</span>
+        <span>{{ user.email }}</span>
+      </div>
+
+      <div class="row">
+        <span>Has Profile Image</span>
+        <span>{{ user.hasProfileImage }}</span>
+      </div>
+
+      <button class="logout" (click)="logout()">Logout</button>
+    </div>
   </div>
 </div>

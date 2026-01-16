@@ -1,24 +1,49 @@
-$primary-v2: #6b90ff; //brand blue
-$primary: #5a30ff; //indigo
-$primary-dark: #582bdb; //dark indigo
-$input-bg: #fafafa; //light gray
-$border-light: #ddd; //soft gary background
-$error-color: red;
+// brand colors
+$primary: #5a30ff; // Indigo
+$primary-v2: #6b90ff; // Brand Blue
+$primary-dark: #582bdb; // Dark Indigo
 
-$text-dark: #1b1b1b;
+//   SURFACE & BACKGROUND COLORS
+$surface-white: #ffffff; // White
+$surface-soft: #f6f8ff; // Soft Lavender White
+$input-bg: #fafafa; // Light Gray
+$border-light: #ddd; // Soft Gray
+$divider-soft: rgba(0, 0, 0, 0.06); // Very Soft Gray (Dividers)
 
-$subtitle-color: gray;
-$text-small: 0.9rem;
+// TEXT COLORS & SIZES
 
-$card-width: 380px;
-$card-padding: 32px;
-$card-radius: 20px;
-$card-bg: #ffffff; //white color
-$card-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+$text-dark: #1b1b1b; // Charcoal / Near Black
+$text-muted: #7b8194; // Cool Gray / Blue Gray
+$subtitle-color: gray; // Neutral Gray
+$text-small: 0.9rem; // Small Text Size
+
+//  STATUS COLORS
+
+$error-color: red; // Error / Danger
+
+//  CARD SYSTEM
+
+$card-width: 380px; // Default Card Width
+$card-padding: 32px; // Card Inner Spacing
+$card-radius: 20px; // Card Border Radius
+$card-bg: #ffffff; // Card Background (White)
+$card-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); // Default Card Shadow
+
+//   SHADOW SYSTEM
+
+$shadow-elevated: 0 20px 40px rgba(99, 102, 241, 0.15),
+  // Indigo Shadow
+  0 8px 16px rgba(99, 102, 241, 0.08); // Soft Indigo Shadow
+
+$shadow-inner-soft: inset 0 1px 0 rgba(255, 255, 255, 0.8); // White Inner Highlight
+
+// GRADIENTS
 
 $auth-gradient: linear-gradient(
   135deg,
   #c3d4ff,
+  // Soft Baby Blue
   #eac6ff,
-  #c1ffe4
-); // soft babyblue/light lavender/mint green
+  // Light Lavender
+  #c1ffe4 // Mint Green
+);

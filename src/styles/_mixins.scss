@@ -72,3 +72,24 @@
   text-decoration: none;
   transition: text-decoration 0.2s ease;
 }
+
+@mixin elevated-surface {
+  padding: $card-padding;
+  border-radius: $card-radius;
+  background: $surface-soft;
+  box-shadow: $shadow-elevated;
+  text-align: center;
+}
+
+@mixin soft-glow {
+  box-shadow: 0 0 0 6px rgba(99, 102, 241, 0.12), 0 12px 24px rgba(99, 102, 241, 0.25);
+}
+
+@mixin key-value-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  font-size: 0.8rem;
+  border-bottom: 1px solid $divider-soft;
+}

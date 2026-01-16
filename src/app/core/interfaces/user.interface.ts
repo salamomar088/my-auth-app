@@ -2,7 +2,7 @@ export interface IUsers {
   id: number;
   name: string;
   email: string;
-  role?: string;
+  hasProfileImage?: boolean;
   profileImage: string | null;
   createdAt?: string;
 }

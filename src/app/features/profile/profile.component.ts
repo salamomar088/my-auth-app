@@ -13,18 +13,28 @@ export class ProfileComponent implements OnInit {
   user: IUsers | null = null;
   loading = false;
   error: string | null = null;
+  showImage = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadProfile();
   }
+
   loadProfile(): void {
     this.loading = true;
     this.error = null;
+
     this.authService.getProfile().subscribe({
-      next: (res: IUsers | any) => {
-        this.user = res;
+      next: (res: any) => {
+        this.user = {
+          id: res.id,
+          name: res.name || res.fullname,
+          email: res.email,
+          hasProfileImage: res.hasProfileImage === true,
+          profileImage: res.profileImage || res.profile_picture,
+        };
+
         this.loading = false;
       },
       error: (err: any) => {
@@ -33,6 +43,13 @@ export class ProfileComponent implements OnInit {
       },
     });
   }
+
+  openImage(): void {
+    if (this.user?.hasProfileImage) {
+      this.showImage = true;
+    }
+  }
+
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/auth/login']);
