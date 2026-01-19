@@ -1,15 +1,3 @@
-<aside class="sidebar" *ngIf="isLoggedIn()">
-  <h2 class="logo">MyAuthApp</h2>
-
-  <nav>
-    <a routerLink="/profile" routerLinkActive="active">Profile</a>
-    <a routerLink="/users" routerLinkActive="active">Users</a>
-    <a href="/api-docs" target="_blank">Swagger Docs</a>
-    <a routerLink="/dashboard" class="disabled">Dashboard</a>
-  </nav>
-
-  <button class="logout" (click)="logout()">Logout</button>
-</aside>
 <button
   class="nav-icon"
   [class.open]="open"
@@ -30,7 +18,9 @@
   <nav>
     <a routerLink="/profile" routerLinkActive="active" (click)="open = false"> Profile </a>
     <a routerLink="/users" routerLinkActive="active" (click)="open = false"> Users </a>
-    <a href="/api-docs" target="_blank" (click)="open = false"> Swagger Docs </a>
+    <a href="http://localhost:8000/api-docs" target="_blank" rel="noopener noreferrer">
+      Swagger Docs
+    </a>
     <a routerLink="/dashboard" class="disabled"> Dashboard </a>
   </nav>
 
