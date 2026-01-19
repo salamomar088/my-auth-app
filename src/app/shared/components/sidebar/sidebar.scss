@@ -112,6 +112,8 @@
   }
 
   .logout {
+    position: relative;
+    overflow: hidden;
     background: #0f0f0f;
     border: none;
     color: white;
@@ -119,6 +121,40 @@
     border-radius: 14px;
     font-weight: 600;
     cursor: pointer;
+    transition: color 0.35s ease;
+    z-index: 0;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 100%;
+      background: #ffffff;
+      z-index: 0;
+      transition: width 0.35s ease;
+      z-index: -1;
+    }
+
+    &:hover::before {
+      width: 100%;
+    }
+
+    &:hover {
+      color: $error-color;
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.35);
+    }
+    &:active {
+      transform: translateY(0) scale(1);
+      box-shadow: none;
+    }
+
+    span,
+    & {
+      z-index: 1;
+    }
   }
 }
 
