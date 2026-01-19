@@ -3,7 +3,7 @@
 
 .users-container {
   min-height: 100vh;
-  background: $surface-soft;
+  background: $auth-gradient;
   padding: 24px;
 }
 
@@ -56,12 +56,6 @@
 
 .user-name {
   font-size: 1rem;
-}
-
-.chevron {
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: $primary;
 }
 
 .accordion-body {

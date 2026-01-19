@@ -10,3 +10,29 @@
 
   <button class="logout" (click)="logout()">Logout</button>
 </aside>
+<button
+  class="nav-icon"
+  [class.open]="open"
+  (click)="open = !open"
+  *ngIf="isLoggedIn()"
+  aria-label="Toggle sidebar"
+>
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
+
+<div class="sidebar-backdrop" *ngIf="open" (click)="open = false"></div>
+
+<aside class="sidebar" *ngIf="isLoggedIn()" [class.open]="open">
+  <h2 class="logo">MyAuthApp</h2>
+
+  <nav>
+    <a routerLink="/profile" routerLinkActive="active" (click)="open = false"> Profile </a>
+    <a routerLink="/users" routerLinkActive="active" (click)="open = false"> Users </a>
+    <a href="/api-docs" target="_blank" (click)="open = false"> Swagger Docs </a>
+    <a routerLink="/dashboard" class="disabled"> Dashboard </a>
+  </nav>
+
+  <button class="logout" (click)="logout()">Logout</button>
+</aside>

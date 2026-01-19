@@ -29,10 +29,6 @@
               {{ u.name || '-' }}
               <span *ngIf="u.id === currentUserId" class="me-badge"> You </span>
             </span>
-
-            <span class="chevron">
-              {{ expandedUserId === u.id ? '−' : '+' }}
-            </span>
           </div>
           <div class="accordion-body" *ngIf="expandedUserId === u.id">
             <div class="row">
