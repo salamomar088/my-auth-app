@@ -2,6 +2,7 @@
 @use '../../../styles/mixins' as *;
 
 .users-container {
+  @include unselectable;
   min-height: 100vh;
   background: $auth-gradient;
   padding: 24px;
@@ -63,7 +64,7 @@
   animation: fadeIn 0.2s ease-out;
 }
 
-.row {
+.kv-row {
   @include key-value-row;
 
   span:first-child {

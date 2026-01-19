@@ -2,6 +2,7 @@
 @use '../../../../styles/mixins' as *;
 
 .register-container {
+  @include unselectable;
   min-height: 100vh;
   @include flex-center;
   background: $auth-gradient;
@@ -119,13 +120,14 @@ input {
     border-style: solid;
 
     &:hover {
-      border-color: $primary; // only highlight border
+      border-color: $primary;
     }
   }
 }
 
 .login-link {
   @include route-link;
+
   &:hover {
     text-decoration: underline !important;
   }

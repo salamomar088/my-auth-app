@@ -1,59 +1,63 @@
 <div class="profile-page">
-  <div class="profile-card" *ngIf="loading; else loaded">
-    <p class="sub">Loading profile…</p>
-  </div>
-
-  <ng-template #loaded>
-    <div class="profile-card" *ngIf="error">
-      <p class="sub">{{ error }}</p>
-    </div>
-
-    <div class="profile-card profile-layout" *ngIf="user">
-      <div class="avatar">
-        <img
-          *ngIf="user.profileImage; else avatarFallback"
-          [src]="user.profileImage"
-          alt="Profile Avatar"
-        />
-
-        <ng-template #avatarFallback>
-          <div class="avatar-fallback">
-            {{ user.name.charAt(0) | uppercase }}
-          </div>
-        </ng-template>
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+      <div class="profile-card" *ngIf="loading; else loaded">
+        <p class="sub">Loading profile…</p>
       </div>
 
-      <div class="profile-info">
-        <h2 class="name">{{ user.name }}</h2>
+      <ng-template #loaded>
+        <div class="profile-card" *ngIf="error">
+          <p class="sub">{{ error }}</p>
+        </div>
 
-        <div class="info">
-          <div class="row">
-            <span>Member ID</span>
-            <span>{{ user.id }}</span>
+        <div class="profile-card profile-layout" *ngIf="user">
+          <div class="avatar">
+            <img
+              *ngIf="user.profileImage; else avatarFallback"
+              [src]="user.profileImage"
+              alt="Profile Avatar"
+            />
+
+            <ng-template #avatarFallback>
+              <div class="avatar-fallback">
+                {{ user.name.charAt(0) | uppercase }}
+              </div>
+            </ng-template>
           </div>
 
-          <div class="row">
-            <span>Email</span>
-            <span>{{ user.email }}</span>
-          </div>
+          <div class="profile-info">
+            <h2 class="name">{{ user.name }}</h2>
 
-          <div class="row">
-            <span>Profile Image</span>
+            <div class="info">
+              <div class="row">
+                <span>Member ID</span>
+                <span>{{ user.id }}</span>
+              </div>
 
-            <span *ngIf="!user.hasProfileImage">No</span>
+              <div class="row">
+                <span>Email</span>
+                <span>{{ user.email }}</span>
+              </div>
 
-            <button *ngIf="user.hasProfileImage" class="view-btn" (click)="openImage()">
-              View
-            </button>
+              <div class="row">
+                <span>Profile Image</span>
+
+                <span *ngIf="!user.hasProfileImage">No</span>
+
+                <button *ngIf="user.hasProfileImage" class="view-btn" (click)="openImage()">
+                  View
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
 
-    <div class="profile-card image-card" *ngIf="showImage && user?.profileImage">
-      <img [src]="user?.profileImage" alt="Profile Image" class="profile-image" />
+        <div class="profile-card image-card" *ngIf="showImage && user?.profileImage">
+          <img [src]="user?.profileImage" alt="Profile Image" class="profile-image" />
 
-      <button class="close-btn" (click)="showImage = false">Close</button>
+          <button class="close-btn" (click)="showImage = false">Close</button>
+        </div>
+      </ng-template>
     </div>
-  </ng-template>
+  </div>
 </div>

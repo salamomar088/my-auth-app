@@ -2,6 +2,7 @@
 @use '../../../../styles/mixins' as *;
 
 .login-container {
+  @include unselectable;
   min-height: 100vh;
   @include flex-center;
   background: $auth-gradient;
@@ -38,6 +39,7 @@ input {
 
 .forgot-password {
   display: block;
+
   margin: 10px 0;
   text-align: right;
   font-size: 0.85rem;

@@ -93,3 +93,9 @@
   font-size: 0.8rem;
   border-bottom: 1px solid $divider-soft;
 }
+@mixin unselectable {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}

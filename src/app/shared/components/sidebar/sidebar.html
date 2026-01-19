@@ -12,17 +12,24 @@
 
 <div class="sidebar-backdrop" *ngIf="open" (click)="open = false"></div>
 
-<aside class="sidebar" *ngIf="isLoggedIn()" [class.open]="open">
-  <h2 class="logo">MyAuthApp</h2>
+<div class="row">
+  <div class="col-12 col-md-3 col-lg-2">
+    <aside class="sidebar" *ngIf="isLoggedIn()" [class.open]="open">
+      <h2 class="logo">MyAuthApp</h2>
 
-  <nav>
-    <a routerLink="/profile" routerLinkActive="active" (click)="open = false"> Profile </a>
-    <a routerLink="/users" routerLinkActive="active" (click)="open = false"> Users </a>
-    <a href="http://localhost:8000/api-docs" target="_blank" rel="noopener noreferrer">
-      Swagger Docs
-    </a>
-    <a routerLink="/dashboard" class="disabled"> Dashboard </a>
-  </nav>
+      <nav>
+        <a routerLink="/profile" routerLinkActive="active" (click)="open = false"> Profile </a>
 
-  <button class="logout" (click)="logout()">Logout</button>
-</aside>
+        <a routerLink="/users" routerLinkActive="active" (click)="open = false"> Users </a>
+
+        <a href="http://localhost:8000/api-docs" target="_blank" rel="noopener noreferrer">
+          Swagger Docs
+        </a>
+
+        <a routerLink="/dashboard" class="disabled"> Dashboard </a>
+      </nav>
+
+      <button class="logout" (click)="logout()">Logout</button>
+    </aside>
+  </div>
+</div>

@@ -1,68 +1,73 @@
 <div class="users-container">
-  <div class="header">
-    <h2>Users</h2>
-  </div>
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+      <div class="header">
+        <h2>Users</h2>
+      </div>
 
-  <div class="users-search">
-    <input
-      type="text"
-      placeholder="Search by name..."
-      [(ngModel)]="searchTerm"
-      (ngModelChange)="onSearchChange()"
-    />
-  </div>
+      <div class="users-search">
+        <input
+          type="text"
+          placeholder="Search by name..."
+          [(ngModel)]="searchTerm"
+          (ngModelChange)="onSearchChange()"
+        />
+      </div>
 
-  <div *ngIf="loading; else loaded" class="state loading">Loading users...</div>
+      <div *ngIf="loading; else loaded" class="state loading">Loading users...</div>
 
-  <ng-template #loaded>
-    <div *ngIf="error" class="state error">
-      {{ error }}
-    </div>
+      <ng-template #loaded>
+        <div *ngIf="error" class="state error">
+          {{ error }}
+        </div>
 
-    <div *ngIf="!error && users.length === 0" class="state empty">No users found.</div>
+        <div *ngIf="!error && users.length === 0" class="state empty">No users found.</div>
 
-    <div *ngIf="!error && users.length > 0" class="users-card">
-      <div class="users-scroll">
-        <div class="user-accordion" *ngFor="let u of users; trackBy: trackById">
-          <div class="accordion-header" (click)="toggleUser(u.id)">
-            <span class="user-name">
-              {{ u.name || '-' }}
-              <span *ngIf="u.id === currentUserId" class="me-badge"> You </span>
-            </span>
-          </div>
-          <div class="accordion-body" *ngIf="expandedUserId === u.id">
-            <div class="row">
-              <span>ID</span>
-              <span>{{ u.id }}</span>
-            </div>
+        <div *ngIf="!error && users.length > 0" class="users-card">
+          <div class="users-scroll">
+            <div class="user-accordion" *ngFor="let u of users; trackBy: trackById">
+              <div class="accordion-header" (click)="toggleUser(u.id)">
+                <span class="user-name">
+                  {{ u.name || '-' }}
+                  <span *ngIf="u.id === currentUserId" class="me-badge"> You </span>
+                </span>
+              </div>
 
-            <div class="row">
-              <span>Email</span>
-              <span>{{ u.email }}</span>
-            </div>
+              <div class="accordion-body" *ngIf="expandedUserId === u.id">
+                <div class="kv-row">
+                  <span>ID</span>
+                  <span>{{ u.id }}</span>
+                </div>
 
-            <div class="row">
-              <span>Created At</span>
-              <span>{{ formatDate(u.createdAt) }}</span>
-            </div>
+                <div class="kv-row">
+                  <span>Email</span>
+                  <span>{{ u.email }}</span>
+                </div>
 
-            <div class="row">
-              <span>Profile Image</span>
+                <div class="kv-row">
+                  <span>Created At</span>
+                  <span>{{ formatDate(u.createdAt) }}</span>
+                </div>
 
-              <img
-                *ngIf="u.profileImage; else noImage"
-                [src]="u.profileImage"
-                alt="Profile"
-                class="user-image"
-              />
+                <div class="kv-row">
+                  <span>Profile Image</span>
 
-              <ng-template #noImage>
-                <span class="no-image-text"> No profile image uploaded </span>
-              </ng-template>
+                  <img
+                    *ngIf="u.profileImage; else noImage"
+                    [src]="u.profileImage"
+                    alt="Profile"
+                    class="user-image"
+                  />
+
+                  <ng-template #noImage>
+                    <span class="no-image-text"> No profile image uploaded </span>
+                  </ng-template>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </ng-template>
     </div>
-  </ng-template>
+  </div>
 </div>

@@ -8,6 +8,7 @@
 }
 
 .profile-card {
+  @include unselectable;
   width: $card-width;
   @include auth-card;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
