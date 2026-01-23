@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
 import { IUsers } from '../../core/interfaces/user.interface';
 import { finalize } from 'rxjs/operators';
+import { ServiceAlert } from '../../core/services/alert/alert';
 
 @Component({
   selector: 'app-users',
@@ -23,7 +23,11 @@ export class UsersComponent implements OnInit {
 
   currentUserId: number | null = null;
 
-  constructor(private authService: AuthService, private cdr: ChangeDetectorRef) {}
+  constructor(
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef,
+    private alert: ServiceAlert
+  ) {}
 
   ngOnInit(): void {
     const tokenUser = sessionStorage.getItem('auth_user_id');
@@ -50,13 +54,15 @@ export class UsersComponent implements OnInit {
       .subscribe({
         next: (res: any) => {
           const data = Array.isArray(res) ? res : res?.users ?? res?.data ?? [];
-
           this.users = data;
         },
         error: (err: any) => {
-          this.error = err?.error?.message || err?.message || 'Failed to load users';
+          const message = err?.error?.message || err?.message || 'Failed to load users';
 
+          this.error = message;
           this.users = [];
+
+          this.alert.error(message);
         },
       });
   }

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
 import { AuthService } from '../../../core/services/auth.service';
+import { ServiceAlert } from '../../../core/services/alert/alert';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +16,12 @@ export class Login implements OnInit {
   message = '';
   loginForm: any;
 
-  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private auth: AuthService,
+    private router: Router,
+    private alert: ServiceAlert
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -33,7 +38,7 @@ export class Login implements OnInit {
     this.submited = true;
 
     if (this.loginForm.invalid) {
-      Swal.fire('Error Occurred', 'Please enter valid login details.', 'error');
+      this.alert.error('Please enter valid login details.');
       return;
     }
 
@@ -44,11 +49,11 @@ export class Login implements OnInit {
       })
       .subscribe({
         next: () => {
-          Swal.fire('Welcome aboard!', 'Login successful.', 'success');
+          this.alert.success('Login successful. Welcome aboard!');
           this.router.navigate(['/profile']);
         },
         error: (err: any) => {
-          Swal.fire('Error', err.error?.message || 'Error Occured', 'error');
+          this.alert.error(err.error?.message || 'Error occurred');
         },
       });
   }

@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
 import { AuthService } from '../../../core/services/auth.service';
+import { ServiceAlert } from '../../../core/services/alert/alert';
 
 @Component({
   selector: 'app-register',
@@ -24,7 +24,8 @@ export class Register {
     private fb: FormBuilder,
     private auth: AuthService,
     private router: Router,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private alert: ServiceAlert
   ) {
     this.registerForm = this.fb.group(
       {
@@ -68,7 +69,7 @@ export class Register {
     this.submited = true;
 
     if (this.registerForm.invalid) {
-      Swal.fire('Error', 'Please fill all fields correctly.', 'error');
+      this.alert.error('Please fill all fields correctly.');
       return;
     }
 
@@ -83,11 +84,11 @@ export class Register {
 
     this.auth.register(formData).subscribe({
       next: () => {
-        Swal.fire('Success', 'Account created successfully!', 'success');
+        this.alert.success('Account created successfully!');
         this.router.navigate(['/login']);
       },
       error: (err: any) => {
-        Swal.fire('Registration Failed', err.error.message || 'Error Occured', 'error');
+        this.alert.error(err.error?.message || 'Registration failed');
       },
     });
   }

@@ -1,6 +1,5 @@
-@use '../../../styles/variables' as *;
-@use '../../../styles/mixins' as *;
-
+@import '../../shared/styles/mixins';
+@import '../../shared/styles/variables';
 .users-container {
   @include unselectable;
   min-height: 100vh;

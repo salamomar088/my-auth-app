@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
+import { ServiceAlert } from '../../../core/services/alert/alert';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,12 +10,17 @@ import { AuthService } from '../../../core/services/auth.service';
   standalone: false,
 })
 export class Sidebar {
-  open = false; // UI ONLY
+  open = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private alert: ServiceAlert
+  ) {}
 
   logout(): void {
     this.authService.logout();
+    this.alert.info('You have been logged out');
     this.router.navigate(['/login']);
     this.open = false;
   }

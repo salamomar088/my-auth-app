@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { IUsers } from '../../core/interfaces/user.interface';
-import { ChangeDetectorRef } from '@angular/core';
+import { ServiceAlert } from '../../core/services/alert/alert';
 
 @Component({
   selector: 'app-profile',
@@ -19,7 +19,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private alert: ServiceAlert
   ) {}
 
   ngOnInit(): void {
@@ -43,7 +44,9 @@ export class ProfileComponent implements OnInit {
         this.cdr.detectChanges();
       },
       error: (err: any) => {
-        this.error = err.error?.message || 'Failed to load profile';
+        const message = err.error?.message || 'Failed to load profile';
+        this.error = message;
+        this.alert.error(message);
         this.loading = false;
       },
     });
@@ -57,6 +60,7 @@ export class ProfileComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+    this.alert.info('You have been logged out');
     this.router.navigate(['/auth/login']);
   }
 }

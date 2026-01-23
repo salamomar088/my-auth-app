@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing-module';
 import { AuthModule } from './auth/auth-module';
 import { TokenInterceptor } from './core/interceptor/auth-interceptor';
-import { GlobalErrorHandler } from './core/services/global-error-handler';
+import { GlobalErrorHandler } from './core/services/errorHandler/global-error-handler';
 import { SharedModule } from './shared/shared-module';
 
 @NgModule({
