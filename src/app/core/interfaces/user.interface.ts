@@ -1,8 +1,13 @@
-export interface IUsers {
+export interface User {
   id: number;
   name: string;
   email: string;
-  hasProfileImage?: boolean;
   profileImage: string | null;
-  createdAt?: string;
+  createdAt: string;
+}
+
+export interface UsersResponse {
+  status: number;
+  count: number;
+  data: User[];
 }

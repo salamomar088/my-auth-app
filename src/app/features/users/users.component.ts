@@ -1,9 +1,11 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { AuthService } from '../../core/services/auth.service';
-import { IUsers } from '../../core/interfaces/user.interface';
 import { finalize } from 'rxjs/operators';
+
+import { AuthService } from '../../core/services/auth.service';
 import { ServiceAlert } from '../../core/services/alert/alert';
 import { LocalStorageService } from '../../core/services/storage/local-storage';
+
+import { User, UsersResponse } from '../../core/interfaces/user.interface';
 
 @Component({
   selector: 'app-users',
@@ -12,7 +14,7 @@ import { LocalStorageService } from '../../core/services/storage/local-storage';
   styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit {
-  users: IUsers[] = [];
+  users: User[] = [];
 
   loading = true;
   error: string | null = null;
@@ -52,12 +54,15 @@ export class UsersComponent implements OnInit {
         })
       )
       .subscribe({
-        next: (res: any) => {
-          const data = Array.isArray(res) ? res : res?.users ?? res?.data ?? [];
-          this.users = data;
+        next: (res: UsersResponse) => {
+          this.users = res.data;
         },
-        error: (err: any) => {
-          const message = err?.error?.message || err?.message || 'Failed to load users';
+        error: (err: unknown) => {
+          let message = 'Failed to load users';
+
+          if (err && typeof err === 'object' && 'message' in err) {
+            message = String((err as { message?: string }).message);
+          }
 
           this.error = message;
           this.users = [];
@@ -75,14 +80,16 @@ export class UsersComponent implements OnInit {
     this.loadUsers();
   }
 
-  trackById(_: number, user: IUsers) {
+  trackById(_: number, user: User): number {
     return user.id;
   }
 
-  formatDate(value: any): string {
+  formatDate(value: string | null): string {
     if (!value) return '-';
-    const d = new Date(value);
-    if (Number.isNaN(d.getTime())) return String(value);
-    return d.toLocaleString();
+
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return value;
+
+    return date.toLocaleString();
   }
 }

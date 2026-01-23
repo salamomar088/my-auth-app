@@ -1,8 +1,11 @@
 import { ErrorHandler, Injectable, Injector } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
+
 import { ServiceAlert } from '../alert/alert';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class GlobalErrorHandler implements ErrorHandler {
   constructor(private injector: Injector) {}
 
@@ -12,9 +15,9 @@ export class GlobalErrorHandler implements ErrorHandler {
     let message = 'An unexpected error occurred';
 
     if (error instanceof HttpErrorResponse) {
-      message = error.error?.message || error.statusText || 'Server error occurred';
+      message = error.error?.message || `Request failed with status ${error.status}`;
     } else if (error instanceof Error) {
-      message = error.message || message;
+      message = error.message;
     }
 
     alertService.error(message);

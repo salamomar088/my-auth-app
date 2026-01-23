@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
 import { AuthService } from '../../../core/services/auth.service';
 import { ServiceAlert } from '../../../core/services/alert/alert';
 
@@ -13,7 +14,7 @@ import { ServiceAlert } from '../../../core/services/alert/alert';
 export class Register {
   registerForm!: FormGroup;
   previewUrl: string | ArrayBuffer | null = null;
-  selectedImage!: File;
+  selectedImage: File | null = null;
   submited = false;
 
   showPassword = false;
@@ -50,8 +51,10 @@ export class Register {
       : { passwordMismatch: true };
   }
 
-  onFileSelected(event: any) {
-    const file = event.target.files[0];
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+
     if (!file) return;
 
     this.selectedImage = file;
@@ -65,7 +68,7 @@ export class Register {
     reader.readAsDataURL(file);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.submited = true;
 
     if (this.registerForm.invalid) {
@@ -87,13 +90,19 @@ export class Register {
         this.alert.success('Account created successfully!');
         this.router.navigate(['/login']);
       },
-      error: (err: any) => {
-        this.alert.error(err.error?.message || 'Registration failed');
+      error: (err: unknown) => {
+        let message = 'Registration failed';
+
+        if (err && typeof err === 'object' && 'message' in err) {
+          message = String((err as { message?: string }).message);
+        }
+
+        this.alert.error(message);
       },
     });
   }
 
-  goToLogin() {
+  goToLogin(): void {
     this.router.navigate(['/login']);
   }
 }

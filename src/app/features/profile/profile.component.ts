@@ -1,8 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
-import { IUsers } from '../../core/interfaces/user.interface';
+
+import { AuthService } from '../../core/services/auth.service';
 import { ServiceAlert } from '../../core/services/alert/alert';
+import { UserProfile } from '../../core/interfaces/profile.interface';
 
 @Component({
   selector: 'app-profile',
@@ -11,7 +12,7 @@ import { ServiceAlert } from '../../core/services/alert/alert';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  user: IUsers | null = null;
+  user: UserProfile | null = null;
   loading = true;
   error: string | null = null;
   showImage = false;
@@ -31,20 +32,19 @@ export class ProfileComponent implements OnInit {
     this.error = null;
 
     this.authService.getProfile().subscribe({
-      next: (res: any) => {
-        this.user = {
-          id: res.id,
-          name: res.name || res.fullname,
-          email: res.email,
-          hasProfileImage: res.hasProfileImage === true,
-          profileImage: res.profileImage || res.profile_picture,
-        };
+      next: (res: UserProfile) => {
+        this.user = res;
 
         this.loading = false;
         this.cdr.detectChanges();
       },
-      error: (err: any) => {
-        const message = err.error?.message || 'Failed to load profile';
+      error: (err: unknown) => {
+        let message = 'Failed to load profile';
+
+        if (err && typeof err === 'object' && 'message' in err) {
+          message = String((err as { message?: string }).message);
+        }
+
         this.error = message;
         this.alert.error(message);
         this.loading = false;

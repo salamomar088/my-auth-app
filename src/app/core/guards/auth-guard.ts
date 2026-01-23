@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
       return true;
     }
 
-    this.alert.warning('Session expired. Please login again.');
+    this.alert.warning('Please login to continue...');
     this.router.navigate(['/auth/login']);
     return false;
   }

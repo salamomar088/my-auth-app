@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
-import { LocalStorageService } from './storage/local-storage';
+import { Observable } from 'rxjs';
 
+import { LocalStorageService } from './storage/local-storage';
+import { LoginRequest, LoginResponse, RegisterResponse } from '../interfaces/auth.interface';
+import { UsersResponse } from '../interfaces/user.interface';
+import { UserProfile } from '../interfaces/profile.interface';
 @Injectable({
   providedIn: 'root',
 })
@@ -11,26 +15,30 @@ export class AuthService {
 
   constructor(private http: HttpClient, private storage: LocalStorageService) {}
 
-  register(data: FormData) {
-    return this.http.post(`${this.api}/auth/register`, data);
+  register(data: FormData): Observable<RegisterResponse> {
+    return this.http.post<RegisterResponse>(`${this.api}/auth/register`, data);
   }
 
-  login(credentials: any) {
-    return this.http.post<any>(`${this.api}/auth/login`, credentials).pipe(
+  login(credentials: LoginRequest): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${this.api}/auth/login`, credentials).pipe(
       tap((res) => {
-        if (res?.token) {
-          this.setToken(res.token);
+        if (res.token) {
+          this.storage.setToken(res.token);
         }
       })
     );
   }
 
-  getProfile() {
-    return this.http.get(`${this.api}/users/profile`);
+  getProfile(): Observable<UserProfile> {
+    return this.http.get<UserProfile>(`${this.api}/users/profile`);
   }
 
-  getAllUsers(params?: { name?: string; limit?: number; created_after?: string }) {
-    return this.http.get(`${this.api}/users`, {
+  getAllUsers(params?: {
+    name?: string;
+    limit?: number;
+    created_after?: string;
+  }): Observable<UsersResponse> {
+    return this.http.get<UsersResponse>(`${this.api}/users`, {
       params: {
         ...(params?.name ? { name: params.name } : {}),
         ...(params?.limit ? { limit: params.limit } : {}),
@@ -49,9 +57,5 @@ export class AuthService {
 
   logout(): void {
     this.storage.removeToken();
-  }
-
-  private setToken(token: string): void {
-    this.storage.setToken(token);
   }
 }

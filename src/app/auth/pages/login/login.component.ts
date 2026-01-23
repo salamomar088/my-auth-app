@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
 import { AuthService } from '../../../core/services/auth.service';
 import { ServiceAlert } from '../../../core/services/alert/alert';
+import { LoginRequest } from '../../../core/interfaces/auth.interface';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +16,8 @@ export class Login implements OnInit {
   showPassword = false;
   submited = false;
   message = '';
-  loginForm: any;
+
+  loginForm!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -34,7 +37,7 @@ export class Login implements OnInit {
     return this.loginForm.controls;
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.submited = true;
 
     if (this.loginForm.invalid) {
@@ -42,23 +45,29 @@ export class Login implements OnInit {
       return;
     }
 
-    this.auth
-      .login({
-        email: this.form['email'].value!,
-        password: this.form['password'].value!,
-      })
-      .subscribe({
-        next: () => {
-          this.alert.success('Login successful. Welcome aboard!');
-          this.router.navigate(['/profile']);
-        },
-        error: (err: any) => {
-          this.alert.error(err.error?.message || 'Error occurred');
-        },
-      });
+    const payload: LoginRequest = {
+      email: this.form['email'].value,
+      password: this.form['password'].value,
+    };
+
+    this.auth.login(payload).subscribe({
+      next: () => {
+        this.alert.success('Login successful. Welcome aboard!');
+        this.router.navigate(['/profile']);
+      },
+      error: (err: unknown) => {
+        let message = 'Error occurred';
+
+        if (err && typeof err === 'object' && 'message' in err) {
+          message = String((err as { message?: string }).message);
+        }
+
+        this.alert.error(message);
+      },
+    });
   }
 
-  goToRegister() {
+  goToRegister(): void {
     this.router.navigate(['/register']);
   }
 }
