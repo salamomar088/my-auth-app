@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { ServiceAlert } from '../../../core/services/alert/alert';
+import { LocalStorageService } from '../../../core/services/storage/local-storage';
 
 @Component({
   selector: 'app-sidebar',
@@ -15,7 +16,8 @@ export class Sidebar {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private alert: ServiceAlert
+    private alert: ServiceAlert,
+    private storage: LocalStorageService
   ) {}
 
   logout(): void {
@@ -26,6 +28,6 @@ export class Sidebar {
   }
 
   isLoggedIn(): boolean {
-    return this.authService.isAuthenticated();
+    return this.storage.isAuthenticated();
   }
 }

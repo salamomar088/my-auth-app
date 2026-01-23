@@ -1,21 +1,24 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
+import { LocalStorageService } from '../services/storage/local-storage';
+import { ServiceAlert } from '../services/alert/alert';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  private readonly STORAGE_KEY = 'auth_token';
-
-  constructor(private router: Router) {}
+  constructor(
+    private storage: LocalStorageService,
+    private router: Router,
+    private alert: ServiceAlert
+  ) {}
 
   canActivate(): boolean {
-    const token = sessionStorage.getItem(this.STORAGE_KEY);
-
-    if (token) {
+    if (this.storage.isAuthenticated()) {
       return true;
     }
 
+    this.alert.warning('Session expired. Please login again.');
     this.router.navigate(['/auth/login']);
     return false;
   }

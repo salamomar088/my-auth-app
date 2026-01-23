@@ -3,6 +3,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { IUsers } from '../../core/interfaces/user.interface';
 import { finalize } from 'rxjs/operators';
 import { ServiceAlert } from '../../core/services/alert/alert';
+import { LocalStorageService } from '../../core/services/storage/local-storage';
 
 @Component({
   selector: 'app-users',
@@ -26,13 +27,12 @@ export class UsersComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private cdr: ChangeDetectorRef,
-    private alert: ServiceAlert
+    private alert: ServiceAlert,
+    private storage: LocalStorageService
   ) {}
 
   ngOnInit(): void {
-    const tokenUser = sessionStorage.getItem('auth_user_id');
-    this.currentUserId = tokenUser ? Number(tokenUser) : null;
-
+    this.currentUserId = this.storage.getUserId();
     this.loadUsers();
   }
 

@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
+import { LocalStorageService } from './storage/local-storage';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private api = 'http://localhost:8000/api/v1';
-  private readonly STORAGE_KEY = 'auth_token';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private storage: LocalStorageService) {}
 
   register(data: FormData) {
     return this.http.post(`${this.api}/auth/register`, data);
@@ -40,17 +40,18 @@ export class AuthService {
   }
 
   getToken(): string | null {
-    return sessionStorage.getItem(this.STORAGE_KEY);
+    return this.storage.getToken();
   }
 
   isAuthenticated(): boolean {
-    return !!sessionStorage.getItem(this.STORAGE_KEY);
+    return this.storage.isAuthenticated();
   }
 
   logout(): void {
-    sessionStorage.removeItem(this.STORAGE_KEY);
+    this.storage.removeToken();
   }
+
   private setToken(token: string): void {
-    sessionStorage.setItem(this.STORAGE_KEY, token);
+    this.storage.setToken(token);
   }
 }

@@ -3,18 +3,18 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/c
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs';
 import { LoadingService } from '../services/loadingService/loading';
+import { LocalStorageService } from '../services/storage/local-storage';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TokenInterceptor implements HttpInterceptor {
-  private readonly STORAGE_KEY = 'auth_token';
-
-  constructor(private loadingService: LoadingService) {}
+  constructor(private loadingService: LoadingService, private storage: LocalStorageService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.loadingService.show();
-    const token = sessionStorage.getItem(this.STORAGE_KEY);
+
+    const token = this.storage.getToken();
 
     if (token) {
       req = req.clone({
@@ -30,15 +30,16 @@ export class TokenInterceptor implements HttpInterceptor {
       })
     );
   }
+
   setToken(token: string): void {
-    sessionStorage.setItem(this.STORAGE_KEY, token);
+    this.storage.setToken(token);
   }
 
   clearToken(): void {
-    sessionStorage.removeItem(this.STORAGE_KEY);
+    this.storage.removeToken();
   }
 
   isAuthenticated(): boolean {
-    return !!sessionStorage.getItem(this.STORAGE_KEY);
+    return this.storage.isAuthenticated();
   }
 }
