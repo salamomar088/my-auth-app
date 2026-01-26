@@ -1,0 +1,70 @@
+@import './variables';
+
+/* Font size utilities */
+.text-xs {
+  font-size: $fs-xs;
+}
+.text-sm {
+  font-size: $fs-sm;
+}
+.text-md {
+  font-size: $fs-md;
+}
+.text-lg {
+  font-size: $fs-lg;
+}
+.text-xl {
+  font-size: $fs-xl;
+}
+.text-2xl {
+  font-size: $fs-2xl;
+}
+
+/* Font weight utilities */
+.fw-regular {
+  font-weight: $fw-regular;
+}
+.fw-medium {
+  font-weight: $fw-medium;
+}
+.fw-semibold {
+  font-weight: $fw-semibold;
+}
+.fw-bold {
+  font-weight: $fw-bold;
+}
+
+.text-left {
+  text-align: left;
+}
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/*spacing utilities */
+.mt-sm {
+  margin-top: 0.5rem;
+}
+.mt-md {
+  margin-top: 1rem;
+}
+.mt-lg {
+  margin-top: 1.5rem;
+}
+
+.mb-sm {
+  margin-bottom: 0.5rem;
+}
+.mb-md {
+  margin-bottom: 1rem;
+}
+.mb-lg {
+  margin-bottom: 1.5rem;
+}

@@ -1,49 +1,74 @@
-// brand colors
-$primary: #5a30ff; // Indigo
-$primary-v2: #6b90ff; // Brand Blue
-$primary-dark: #582bdb; // Dark Indigo
+/* Font sizes */
+$fs-xs: 0.75rem; // 12px
+$fs-sm: 0.875rem; // 14px
+$fs-md: 1rem; // 16px
+$fs-lg: 1.125rem; // 18px
+$fs-xl: 1.25rem; // 20px
+$fs-2xl: 1.5rem; // 24px
+$fs-3xl: 1.875rem; // 30px
 
-//   SURFACE & BACKGROUND COLORS
-$surface-white: #ffffff; // White
-$surface-soft: #f6f8ff; // Soft Lavender White
-$input-bg: #fafafa; // Light Gray
-$border-light: #ddd; // Soft Gray
-$divider-soft: rgba(0, 0, 0, 0.06); // Very Soft Gray (Dividers)
+/* Breakpoints */
+$bp-xs: 480px; // phones
+$bp-sm: 640px; // small tablets
+$bp-md: 768px; // tablets
+$bp-lg: 1024px; // laptops
+$bp-xl: 1280px; // desktops
+$bp-2xl: 1536px; // large screens
 
-// TEXT COLORS & SIZES
+/* Font weights */
+$fw-regular: 400;
+$fw-medium: 500;
+$fw-semibold: 600;
+$fw-bold: 700;
 
-$text-dark: #1b1b1b; // Charcoal / Near Black
-$text-muted: #7b8194; // Cool Gray / Blue Gray
-$subtitle-color: gray; // Neutral Gray
-$text-small: 0.9rem; // Small Text Size
+/* COLORS */
 
-//  STATUS COLORS
+/* Primary brand color (purple in the auth design) */
+$color-primary: #6a38c2;
 
-$error-color: red; // Error
+/* Slightly lighter variant for hover / accents */
+$color-primary-soft: #7b4fd6;
 
-//  CARD SYSTEM
+/* Main white surface (cards, right panel) */
+$color-surface: #ffffff;
 
-$card-width: 380px; // Default Card Width
-$card-padding: 32px; // Card Inner Spacing
-$card-radius: 20px; // Card Border Radius
-$card-bg: #ffffff; // Card Background (White)
-$card-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); // Default Card Shadow
+/* Light gray background for inputs */
+$color-surface-muted: #f3f4f6;
 
-//   SHADOW SYSTEM
+/* Main text color */
+$color-text-main: #1f2937;
 
-$shadow-elevated: 0 20px 40px rgba(99, 102, 241, 0.15),
-  // Indigo Shadow
-  0 8px 16px rgba(99, 102, 241, 0.08); // Soft Indigo Shadow
+/* Secondary / helper text */
+$color-text-muted: #6b7280;
 
-$shadow-inner-soft: inset 0 1px 0 rgba(255, 255, 255, 0.8); // White Inner Highlight
+/* Borders for inputs and dividers */
+$color-border: #e5e7eb;
 
-// GRADIENTS
+/* BORDER RADIUS */
 
-$auth-gradient: linear-gradient(
-  135deg,
-  #c3d4ff,
-  // Soft Baby Blue
-  #eac6ff,
-  // Light Lavender
-  #c1ffe4 // Mint Green
-);
+/* Small rounding (icons, tiny elements) */
+$radius-sm: 8px;
+
+/* Medium rounding (inputs) */
+$radius-md: 14px;
+
+/* Large rounding (auth card container) */
+$radius-lg: 22px;
+
+/* Fully rounded (pill buttons) */
+$radius-pill: 999px;
+
+/*  SHADOWS*/
+/* Soft hover shadow */
+$shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.15);
+
+/* Main card shadow (auth container) */
+$shadow-card: 0 20px 50px rgba(0, 0, 0, 0.25);
+
+/* TRANSITIONS*/
+
+/* Fast interactions (hover, focus) */
+$transition-fast: 0.2s ease;
+
+/* Normal UI transitions */
+$transition-normal: 0.35s ease;

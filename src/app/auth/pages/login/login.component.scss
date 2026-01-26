@@ -1,80 +1,129 @@
-@import '../../../shared/styles/mixins';
 @import '../../../shared/styles/variables';
+@import '../../../shared/styles/mixins';
 
 .login-container {
-  @include unselectable;
-  min-height: 100vh;
-  @include flex-center;
-  background: $auth-gradient;
+  background: white;
+  padding: 2rem 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.auth-wrapper {
+  width: 100%;
+  max-width: 900px;
+  background: $color-surface;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-card;
+  display: flex;
+  overflow: hidden;
+}
+
+.auth-left {
+  flex: 1;
+  background: linear-gradient(135deg, $color-primary, $color-primary-soft);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-left-content {
+  max-width: 300px;
+  text-align: center;
+  padding: 3rem;
+}
+
+.auth-left h1 {
+  @include text-2xl;
+  margin-bottom: 1rem;
+}
+
+.auth-left p {
+  @include text-sm;
+  opacity: 0.9;
+  margin-bottom: 2rem;
+}
+
+.auth-left .register-link {
+  color: white;
+  font-weight: $fw-semibold;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.auth-right {
+  flex: 1;
+  padding: 3rem;
 }
 
 .card {
-  @include auth-card;
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+h2 {
+  @include text-xl;
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  @include text-sm;
+  color: $color-text-muted;
+  margin-bottom: 1.5rem;
 }
 
 label {
-  @include form-label;
+  @include text-sm;
+  font-weight: $fw-medium;
+  display: block;
+  margin-bottom: 0.25rem;
 }
 
 input {
-  @include input-style;
+  @include auth-input;
+  margin-bottom: 1rem;
 }
 
 .password-wrapper {
   position: relative;
 
   input {
-    padding-right: 40px;
+    padding-right: 2.5rem;
   }
 
   .toggle-icon {
     position: absolute;
-    right: 12px;
+    right: 0.75rem;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-    font-size: 18px;
+    color: $color-text-muted;
   }
 }
 
 .forgot-password {
-  display: block;
-
-  margin: 10px 0;
+  @include text-sm;
   text-align: right;
-  font-size: 0.85rem;
-  color: $primary;
+  color: $color-primary;
   cursor: pointer;
+  margin-bottom: 1rem;
 }
 
 .btn {
-  @include primary-button;
-}
-
-.bottom-text {
-  margin-top: 18px;
-  font-size: 0.9rem;
-
-  a {
-    color: $primary;
-    font-weight: bold;
-    text-decoration: none;
-  }
+  width: 100%;
+  background: $color-primary;
+  color: white;
+  @include auth-button;
 }
 
 .error {
-  @include error-text;
+  @include text-xs;
+  color: red;
+  margin-bottom: 0.5rem;
 }
 
 .system-message {
-  margin-top: 12px;
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-.register-link {
-  @include route-link;
-
-  &:hover {
-    text-decoration: underline !important;
-  }
+  margin-top: 0.75rem;
+  @include text-sm;
+  font-weight: $fw-semibold;
 }

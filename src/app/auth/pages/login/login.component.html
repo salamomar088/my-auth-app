@@ -1,77 +1,53 @@
 <div class="login-container">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-12 col-sm-8 col-md-6 col-lg-4">
-        <div class="card">
-          <h2>Welcome Back</h2>
-          <p class="subtitle">Enter your Email to continue</p>
+  <div class="auth-wrapper">
+    <div class="auth-left">
+      <div class="auth-left-content text-center">
+        <h1 class="text-2xl fw-bold mb-md">Welcome Back</h1>
+        <p class="text-sm mb-lg">Sign in to continue access</p>
 
-          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-            <label>Email</label>
-            <input type="email" formControlName="email" placeholder="your.email@gmail.com" />
-            <div class="error" *ngIf="submited && form['email'].errors">
-              <span *ngIf="form['email'].errors['required']">Email is required.</span>
-              <span *ngIf="form['email'].errors['email']">Invalid email format.</span>
-            </div>
-
-            <label>Password</label>
-            <div class="password-wrapper">
-              <input
-                [type]="showPassword ? 'text' : 'password'"
-                formControlName="password"
-                placeholder="Enter your password"
-              />
-              <span class="toggle-icon" (click)="showPassword = !showPassword">
-                <svg
-                  *ngIf="showPassword"
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="icon"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M13.875 18.825A10.05 10.05 0 0112 19c-4.477 0-8.268-2.943-9.542-7"
-                  />
-                </svg>
-
-                <svg
-                  *ngIf="!showPassword"
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="icon"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                </svg>
-              </span>
-            </div>
-
-            <div class="error" *ngIf="submited && form['password'].invalid">
-              Password is required.
-            </div>
-
-            <span class="forgot-password">Forgot password?</span>
-
-            <button type="submit" class="btn">Log In</button>
-
-            <p class="system-message">{{ message }}</p>
-          </form>
-
-          <p class="bottom-text">
-            Don't have an account?
-            <a class="register-link" (click)="goToRegister()">Register</a>
-          </p>
+        <div>
+          <p class="bottom-text text-sm mb-sm">Don't have an account?</p>
+          <button type="button" class="btn fw-semibold" (click)="goToRegister()">Register</button>
         </div>
+      </div>
+    </div>
+
+    <div class="auth-right">
+      <div class="card">
+        <h2 class="text-xl fw-semibold mb-sm">Welcome Back</h2>
+        <p class="subtitle text-sm mb-lg">Enter your Email to continue</p>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <label class="text-sm fw-medium">Email</label>
+          <input type="email" formControlName="email" placeholder="your.email@gmail.com" />
+
+          <label class="text-sm fw-medium">Password</label>
+          <div class="password-wrapper">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              formControlName="password"
+              placeholder="Enter your password"
+            />
+
+            <span class="toggle-icon" (click)="showPassword = !showPassword"> </span>
+          </div>
+
+          @if (errorMessage) {
+          <div class="error text-xs mb-sm">
+            {{ errorMessage }}
+          </div>
+          }
+
+          <span class="forgot-password text-sm mb-md"> Forgot password? </span>
+
+          <button type="submit" class="btn mt-md">Log In</button>
+
+          @if (message) {
+          <p class="system-message text-sm fw-semibold mt-sm">
+            {{ message }}
+          </p>
+          }
+        </form>
       </div>
     </div>
   </div>

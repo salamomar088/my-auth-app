@@ -20,6 +20,7 @@ export class Register {
   showPassword = false;
   showConfirm = false;
   message = '';
+  errorMessage: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -32,7 +33,7 @@ export class Register {
       {
         name: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(6)]],
+        password: ['', [Validators.required, Validators.minLength(8)]],
         confirmPassword: ['', Validators.required],
       },
       {
@@ -70,9 +71,30 @@ export class Register {
 
   onSubmit(): void {
     this.submited = true;
+    this.errorMessage = null;
 
-    if (this.registerForm.invalid) {
-      this.alert.error('Please fill all fields correctly.');
+    if (this.form['name'].invalid) {
+      this.errorMessage = 'Name is required';
+      return;
+    }
+
+    if (this.form['email'].invalid) {
+      this.errorMessage = 'Please enter a valid email address';
+      return;
+    }
+
+    if (this.form['password'].invalid) {
+      this.errorMessage = 'Password must be at least 8 characters';
+      return;
+    }
+
+    if (this.form['confirmPassword'].invalid) {
+      this.errorMessage = 'Please confirm your password';
+      return;
+    }
+
+    if (this.registerForm.errors?.['passwordMismatch']) {
+      this.errorMessage = 'Passwords do not match';
       return;
     }
 
@@ -87,7 +109,7 @@ export class Register {
 
     this.auth.register(formData).subscribe({
       next: () => {
-        this.alert.success('Account created successfully!');
+        this.alert.success('Registration successful. Please log in.');
         this.router.navigate(['/login']);
       },
       error: (err: unknown) => {
@@ -97,7 +119,7 @@ export class Register {
           message = String((err as { message?: string }).message);
         }
 
-        this.alert.error(message);
+        this.errorMessage = message;
       },
     });
   }

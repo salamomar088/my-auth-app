@@ -16,6 +16,7 @@ export class Login implements OnInit {
   showPassword = false;
   submited = false;
   message = '';
+  errorMessage: string | null = null;
 
   loginForm!: FormGroup;
 
@@ -39,9 +40,15 @@ export class Login implements OnInit {
 
   onSubmit(): void {
     this.submited = true;
+    this.errorMessage = null;
 
-    if (this.loginForm.invalid) {
-      this.alert.error('Please enter valid login details.');
+    if (this.form['email'].invalid) {
+      this.errorMessage = 'Please enter a valid email address';
+      return;
+    }
+
+    if (this.form['password'].invalid) {
+      this.errorMessage = 'Password is required';
       return;
     }
 
@@ -62,7 +69,7 @@ export class Login implements OnInit {
           message = String((err as { message?: string }).message);
         }
 
-        this.alert.error(message);
+        this.errorMessage = message;
       },
     });
   }
