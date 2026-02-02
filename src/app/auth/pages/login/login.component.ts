@@ -65,8 +65,15 @@ export class Login implements OnInit {
       error: (err: unknown) => {
         let message = 'Error occurred';
 
-        if (err && typeof err === 'object' && 'message' in err) {
-          message = String((err as { message?: string }).message);
+        if (
+          err &&
+          typeof err === 'object' &&
+          'error' in err &&
+          typeof (err as any).error === 'object' &&
+          (err as any).error !== null &&
+          'message' in (err as any).error
+        ) {
+          message = String((err as any).error.message);
         }
 
         this.errorMessage = message;
