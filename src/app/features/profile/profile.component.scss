@@ -16,6 +16,7 @@
 }
 
 .profile-layout {
+  @include unselectable;
   display: grid;
   grid-template-columns: 280px 1fr;
   gap: 24px;

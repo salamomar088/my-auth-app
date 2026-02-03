@@ -1,73 +1,81 @@
 <div class="users-container">
   <div class="row justify-content-center">
     <div class="col-12 col-sm-10 col-md-8 col-lg-6">
-      <div class="header">
-        <h2>Users</h2>
+      <div class="header mb-md text-center">
+        <h2 class="fw-bold">Users</h2>
       </div>
 
-      <div class="users-search">
+      <div class="users-search mb-md">
         <input
           type="text"
+          class="w-100"
           placeholder="Search by name..."
           [(ngModel)]="searchTerm"
           (ngModelChange)="onSearchChange()"
         />
       </div>
 
-      <div *ngIf="loading; else loaded" class="state loading">Loading users...</div>
+      @if (loading) {
+      <div class="state loading text-center fw-medium text-sm">Loading users...</div>
+      } @else { @if (error) {
+      <div class="state error text-center fw-medium text-sm">
+        {{ error }}
+      </div>
+      } @if (!error && users.length === 0) {
+      <div class="state empty text-center text-sm">No users found.</div>
+      } @if (!error && users.length > 0) {
+      <div class="users-card">
+        <div class="users-scroll">
+          @for (u of users; track trackById($index, u)) {
+          <div class="user-accordion mb-sm">
+            <div class="accordion-header flex-between" (click)="toggleUser(u.id)">
+              <span class="user-name fw-semibold">
+                {{ u.name || '-' }}
+                @if (u.id === currentUserId) {
+                <span class="me-badge text-xs fw-medium"> You </span>
+                }
+              </span>
+            </div>
 
-      <ng-template #loaded>
-        <div *ngIf="error" class="state error">
-          {{ error }}
-        </div>
-
-        <div *ngIf="!error && users.length === 0" class="state empty">No users found.</div>
-
-        <div *ngIf="!error && users.length > 0" class="users-card">
-          <div class="users-scroll">
-            <div class="user-accordion" *ngFor="let u of users; trackBy: trackById">
-              <div class="accordion-header" (click)="toggleUser(u.id)">
-                <span class="user-name">
-                  {{ u.name || '-' }}
-                  <span *ngIf="u.id === currentUserId" class="me-badge"> You </span>
+            @if (expandedUserId === u.id) {
+            <div class="accordion-body mt-sm">
+              <div class="kv-row mb-sm">
+                <span class="text-sm fw-medium text-left"> ID </span>
+                <span class="fw-semibold">
+                  {{ u.id }}
                 </span>
               </div>
 
-              <div class="accordion-body" *ngIf="expandedUserId === u.id">
-                <div class="kv-row">
-                  <span>ID</span>
-                  <span>{{ u.id }}</span>
-                </div>
+              <div class="kv-row mb-sm">
+                <span class="text-sm fw-medium text-left"> Email </span>
+                <span class="fw-semibold">
+                  {{ u.email }}
+                </span>
+              </div>
 
-                <div class="kv-row">
-                  <span>Email</span>
-                  <span>{{ u.email }}</span>
-                </div>
+              <div class="kv-row mb-sm">
+                <span class="text-sm fw-medium text-left"> Created At </span>
+                <span class="fw-semibold">
+                  {{ formatDate(u.createdAt) }}
+                </span>
+              </div>
 
-                <div class="kv-row">
-                  <span>Created At</span>
-                  <span>{{ formatDate(u.createdAt) }}</span>
-                </div>
+              <div class="kv-row">
+                <span class="text-sm fw-medium text-left"> Profile Image </span>
 
-                <div class="kv-row">
-                  <span>Profile Image</span>
-
-                  <img
-                    *ngIf="u.profileImage; else noImage"
-                    [src]="u.profileImage"
-                    alt="Profile"
-                    class="user-image"
-                  />
-
-                  <ng-template #noImage>
-                    <span class="no-image-text"> No profile image uploaded </span>
-                  </ng-template>
-                </div>
+                @if (u.profileImage) {
+                <img [src]="u.profileImage" alt="Profile" class="user-image mt-sm" />
+                } @else {
+                <span class="no-image-text text-sm mt-sm"> No profile image uploaded </span>
+                }
               </div>
             </div>
+            }
           </div>
+          }
         </div>
-      </ng-template>
+      </div>
+      } }
     </div>
   </div>
 </div>

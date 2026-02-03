@@ -1,32 +1,41 @@
 @import '../../shared/styles/mixins';
 @import '../../shared/styles/variables';
+
 .users-container {
   @include unselectable;
-  min-height: 100vh;
-  background: $auth-gradient;
+  min-height: 100%;
+  width: 100%;
+  background: transparent;
   padding: 24px;
 }
 
 .header {
   max-width: 980px;
-  margin: 0 auto 12px;
+  margin: 0 auto 16px;
+  color: $color-text-main;
 }
 
 .users-search {
   max-width: 980px;
-  margin: 0 auto 16px;
+  margin: 0 auto 20px;
 
   input {
-    @include input-style;
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border-radius: $radius-md;
+    border: 1px solid $color-border;
+    background: $color-surface-muted;
+    font-size: $fs-sm;
   }
 }
 
 .users-card {
   max-width: 980px;
   margin: 0 auto;
-  background: $card-bg;
-  border-radius: $card-radius;
-  box-shadow: $shadow-elevated;
+  background: $color-surface;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-card;
+  overflow: hidden;
 }
 
 .users-scroll {
@@ -36,26 +45,28 @@
 }
 
 .user-accordion {
-  border-bottom: 1px solid $divider-soft;
+  border-bottom: 1px solid $color-border;
+
+  &:last-child {
+    border-bottom: none;
+  }
 }
 
 .accordion-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include flex-between;
   padding: 14px 6px;
   cursor: pointer;
-  font-weight: 600;
-  color: $text-dark;
-  transition: background 0.2s ease;
+  font-weight: $fw-semibold;
+  color: $color-text-main;
+  transition: background $transition-fast;
 
   &:hover {
-    background: linear-gradient(135deg, rgba(90, 48, 255, 0.08), rgba(107, 144, 255, 0.12));
+    background: rgba(106, 56, 194, 0.08);
   }
 }
 
 .user-name {
-  font-size: 1rem;
+  font-size: $fs-md;
 }
 
 .accordion-body {
@@ -64,39 +75,43 @@
 }
 
 .kv-row {
-  @include key-value-row;
+  @include flex-between;
+  margin-bottom: 8px;
 
   span:first-child {
-    color: $text-muted;
+    font-size: $fs-sm;
+    color: $color-text-muted;
   }
 
   span:last-child {
-    color: $text-dark;
-    font-weight: 600;
+    font-size: $fs-sm;
+    font-weight: $fw-semibold;
+    color: $color-text-main;
   }
 }
 
 .user-image {
   max-width: 120px;
-  border-radius: 12px;
+  border-radius: $radius-md;
   margin-top: 8px;
-  box-shadow: $shadow-inner-soft;
+  box-shadow: $shadow-soft;
 }
 
 .no-image-text {
-  font-size: 0.75rem;
-  color: $text-muted;
+  font-size: $fs-xs;
+  color: $color-text-muted;
   font-style: italic;
   padding-top: 6px;
 }
 
 .me-badge {
   margin-left: 8px;
-  padding: 2px 8px;
-  font-size: 0.7rem;
-  border-radius: 999px;
-  background: $primary;
+  padding: 2px 10px;
+  font-size: $fs-xs;
+  border-radius: $radius-pill;
+  background: $color-primary;
   color: white;
+  font-weight: $fw-medium;
 }
 
 @keyframes fadeIn {
