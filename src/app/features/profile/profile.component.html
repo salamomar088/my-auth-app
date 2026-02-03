@@ -1,63 +1,77 @@
 <div class="profile-page">
-  <div class="row justify-content-center">
-    <div class="col-12 col-sm-8 col-md-6 col-lg-4">
-      <div class="profile-card" *ngIf="loading; else loaded">
-        <p class="sub">Loading profile…</p>
+  <div class="profile-layout">
+    @if (user) {
+    <aside class="profile-sidebar">
+      <div class="avatar-block text-center">
+        <div class="avatar-wrapper" (click)="openImage()">
+          @if (user.profileImage) {
+          <img [src]="user.profileImage" alt="Avatar" />
+          } @else {
+          <div class="avatar-fallback fw-bold">
+            {{ user.name.charAt(0) | uppercase }}
+          </div>
+          }
+        </div>
       </div>
 
-      <ng-template #loaded>
-        <div class="profile-card" *ngIf="error">
-          <p class="sub">{{ error }}</p>
+      <button class="logout-btn mt-lg" (click)="logout()">
+        <img src="/icons/logout.svg" alt="" />
+        <span>Sign Out</span>
+      </button>
+    </aside>
+
+    <section class="profile-content">
+      <header class="content-header mb-lg">
+        <h1 class="fw-bold">Profile Information</h1>
+        <p class="text-sm">Manage your account details and preferences</p>
+      </header>
+
+      <div class="content-section mb-lg">
+        <p class="section-title text-xs fw-medium">PERSONAL INFORMATION</p>
+
+        <div class="info-card">
+          <div class="icon-box accent-blue">
+            <img src="/icons/user.svg" alt="" />
+          </div>
+          <div class="label text-xs">FULL NAME</div>
+          <div class="value">{{ user.name }}</div>
         </div>
 
-        <div class="profile-card profile-layout" *ngIf="user">
-          <div class="avatar">
-            <img
-              *ngIf="user.profileImage; else avatarFallback"
-              [src]="user.profileImage"
-              alt="Profile Avatar"
-            />
+        <div class="info-card">
+          <div class="icon-box accent-purple">
+            <img src="/icons/email.svg" alt="" />
+          </div>
+          <div class="label text-xs">EMAIL ADDRESS</div>
+          <div class="value">{{ user.email }}</div>
+        </div>
+      </div>
 
-            <ng-template #avatarFallback>
-              <div class="avatar-fallback">
-                {{ user.name.charAt(0) | uppercase }}
-              </div>
-            </ng-template>
+      <div class="content-section">
+        <p class="section-title text-xs fw-medium">ACCOUNT DETAILS</p>
+
+        <div class="info-row-grid">
+          <div class="mini-card">
+            <div class="mini-label text-xs">USER ID</div>
+            <div class="mini-value">{{ user.id }}</div>
           </div>
 
-          <div class="profile-info">
-            <h2 class="name">{{ user.name }}</h2>
-
-            <div class="info">
-              <div class="row">
-                <span>Member ID</span>
-                <span>{{ user.id }}</span>
-              </div>
-
-              <div class="row">
-                <span>Email</span>
-                <span>{{ user.email }}</span>
-              </div>
-
-              <div class="row">
-                <span>Profile Image</span>
-
-                <span *ngIf="!user.hasProfileImage">No</span>
-
-                <button *ngIf="user.hasProfileImage" class="view-btn" (click)="openImage()">
-                  View
-                </button>
-              </div>
-            </div>
+          <div class="mini-card">
+            <div class="mini-label text-xs">PROFILE IMAGE</div>
+            @if (user.hasProfileImage) {
+            <div class="badge">Uploaded</div>
+            } @else {
+            <div class="badge muted">Not uploaded</div>
+            }
           </div>
         </div>
+      </div>
 
-        <div class="profile-card image-card" *ngIf="showImage && user?.profileImage">
-          <img [src]="user?.profileImage" alt="Profile Image" class="profile-image" />
-
-          <button class="close-btn" (click)="showImage = false">Close</button>
-        </div>
-      </ng-template>
-    </div>
+      @if (showImage && user.profileImage) {
+      <div class="image-overlay" (click)="showImage = false">
+        <img [src]="user!.profileImage!" alt="Profile Image" />
+      </div>
+      }
+    </section>
+    }
   </div>
 </div>

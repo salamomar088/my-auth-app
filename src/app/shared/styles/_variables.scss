@@ -23,26 +23,17 @@ $fw-bold: 700;
 
 /* COLORS */
 
-/* Primary brand color (purple in the auth design) */
 $color-primary: #6a38c2;
-
-/* Slightly lighter variant for hover / accents */
 $color-primary-soft: #7b4fd6;
-
-/* Main white surface (cards, right panel) */
 $color-surface: #ffffff;
-
-/* Light gray background for inputs */
 $color-surface-muted: #f3f4f6;
-
-/* Main text color */
 $color-text-main: #1f2937;
-
-/* Secondary / helper text */
 $color-text-muted: #6b7280;
-
-/* Borders for inputs and dividers */
 $color-border: #e5e7eb;
+$color-dark-bg: #020617;
+$color-dark-card: #0b1220;
+$color-accent: #7c3aed;
+$color-success: #22c55e;
 
 /* BORDER RADIUS */
 
@@ -72,3 +63,8 @@ $transition-fast: 0.2s ease;
 
 /* Normal UI transitions */
 $transition-normal: 0.35s ease;
+
+/*gradients colors*/
+$sidebar-gradient: linear-gradient(180deg, #0b1220, #050a18);
+$card-gradient: linear-gradient(180deg, #111827, #0b1220);
+$accent-glow: linear-gradient(135deg, #7c3aed, #22d3ee);
