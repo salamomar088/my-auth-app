@@ -26,7 +26,7 @@
       } @if (!error && users.length > 0) {
       <div class="users-card">
         <div class="users-scroll">
-          @for (u of users; track trackById($index, u)) {
+          @for (u of users; track trackById($index, u )) {
           <div class="user-accordion mb-sm">
             <div class="accordion-header flex-between" (click)="toggleUser(u.id)">
               <span class="user-name fw-semibold">

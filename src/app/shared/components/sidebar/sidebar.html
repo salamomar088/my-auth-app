@@ -1,35 +1,45 @@
-<button
-  class="nav-icon"
-  [class.open]="open"
-  (click)="open = !open"
-  *ngIf="isLoggedIn()"
-  aria-label="Toggle sidebar"
->
-  <span></span>
-  <span></span>
-  <span></span>
-</button>
-
-<div class="sidebar-backdrop" *ngIf="open" (click)="open = false"></div>
-
-<div class="row">
-  <div class="col-12 col-md-3 col-lg-2">
-    <aside class="sidebar" *ngIf="isLoggedIn()" [class.open]="open">
-      <h2 class="logo">MyAuthApp</h2>
-
-      <nav>
-        <a routerLink="/profile" routerLinkActive="active" (click)="open = false"> Profile </a>
-
-        <a routerLink="/users" routerLinkActive="active" (click)="open = false"> Users </a>
-
-        <a href="http://localhost:8000/api-docs" target="_blank" rel="noopener noreferrer">
-          Swagger Docs
-        </a>
-
-        <a routerLink="/dashboard" class="disabled"> Dashboard </a>
-      </nav>
-
-      <button class="logout" (click)="logout()">Logout</button>
-    </aside>
+@if (isLoggedIn()) {
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <div class="app-icon">⚡</div>
+    <div>
+      <h2 class="app-name">MyAuthApp</h2>
+    </div>
   </div>
-</div>
+
+  <div class="sidebar-section">
+    <p class="section-label">MAIN MENU</p>
+
+    <a routerLink="/dashboard" routerLinkActive="active" class="nav-item">
+      <img src="/icons/dashboard.svg" />
+      <span>Dashboard</span>
+    </a>
+
+    <a routerLink="/profile" routerLinkActive="active" class="nav-item">
+      <img src="/icons/user.svg" />
+      <span>Profile</span>
+    </a>
+  </div>
+
+  <div class="sidebar-section">
+    <p class="section-label">RESOURCES</p>
+
+    <a routerLink="/users" routerLinkActive="active" class="nav-item">
+      <img src="/icons/users.svg" />
+      <span>Users</span>
+    </a>
+
+    <a href="http://localhost:8000/api-docs" target="_blank" class="nav-item">
+      <img src="/icons/document.svg" />
+      <span>API Docs</span>
+    </a>
+  </div>
+
+  <div class="sidebar-footer">
+    <button class="logout-btn" (click)="logout()">
+      <img src="/icons/logout.svg" />
+      <span>Logout</span>
+    </button>
+  </div>
+</aside>
+}
