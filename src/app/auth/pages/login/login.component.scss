@@ -169,6 +169,7 @@ input {
   color: $color-primary;
   cursor: pointer;
   margin-bottom: 1rem;
+
   &:hover {
     text-decoration: underline;
   }
@@ -178,7 +179,9 @@ input {
   width: 100%;
   background: $color-primary;
   color: white;
+
   @include auth-button;
+  @include hover-lift(-2px);
 }
 
 .error {
@@ -198,7 +201,7 @@ input {
   text-align: center;
   @include text-sm;
   font-weight: $fw-semibold;
-  animation: message-fade-in 0.25s ease-out;
+  animation: message-fade-in 0.25s ease-out both;
 }
 
 @media (max-width: 768px) {

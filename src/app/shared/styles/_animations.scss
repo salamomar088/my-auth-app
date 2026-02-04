@@ -1,4 +1,6 @@
-@keyframes lift-hover {
+/* Animations and interaction mixins */
+
+@keyframes lift {
   from {
     transform: translateY(0);
   }
@@ -7,17 +9,20 @@
   }
 }
 
-@keyframes avatar-hover {
+@keyframes message-fade-in {
   from {
-    transform: translateY(0);
+    opacity: 0;
+    transform: translateY(4px);
   }
   to {
-    transform: translateY(-2px);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 @mixin hover-lift($distance: -2px, $shadow: null) {
-  transition: transform $transition-normal, box-shadow $transition-normal;
+  transition: transform $transition-normal cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow $transition-normal;
 
   &:hover {
     transform: translateY($distance);
@@ -32,11 +37,13 @@
   }
 }
 
-@mixin fill-rounded-hover($bg: white, $text: $color-primary, $duration: 0.65s) {
+/* Fill background on hover with rounded edges (buttons, pills) */
+@mixin fill-rounded-hover($bg: white, $text: $color-primary, $duration: 0.65s, $origin: center) {
   position: relative;
   overflow: hidden;
   z-index: 0;
-  transition: color $duration, transform $transition-normal;
+
+  transition: color $duration, transform $transition-normal cubic-bezier(0.16, 1, 0.3, 1);
 
   &::before {
     content: '';
@@ -45,7 +52,7 @@
     background: $bg;
     border-radius: inherit;
     transform: scaleX(0);
-    transform-origin: center;
+    transform-origin: $origin;
     transition: transform $duration cubic-bezier(0.16, 1, 0.3, 1);
     z-index: -1;
   }
@@ -63,14 +70,11 @@
     transform: translateY(0);
   }
 }
+/* Animation classes */
+.animate-fade-in {
+  animation: message-fade-in 0.25s ease-out both;
+}
 
-@keyframes message-fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.animate-lift {
+  animation: lift 0.25s ease-out forwards;
 }
