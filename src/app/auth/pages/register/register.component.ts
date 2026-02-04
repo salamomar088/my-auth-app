@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../../core/services/auth.service';
-import { ServiceAlert } from '../../../core/services/alert/alert';
+import { AlertService } from '../../../core/services/alert/alert';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +11,7 @@ import { ServiceAlert } from '../../../core/services/alert/alert';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class Register {
+export class RegisterComponent {
   registerForm!: FormGroup;
   previewUrl: string | ArrayBuffer | null = null;
   selectedImage: File | null = null;
@@ -27,7 +27,7 @@ export class Register {
     private auth: AuthService,
     private router: Router,
     private cd: ChangeDetectorRef,
-    private alert: ServiceAlert
+    private alert: AlertService
   ) {
     this.registerForm = this.fb.group(
       {

@@ -3,21 +3,39 @@
 /* Font size utilities */
 .text-xs {
   font-size: $fs-xs;
+  @media (max-width: $bp-md) {
+    font-size: $fs-xs-m;
+  }
 }
 .text-sm {
   font-size: $fs-sm;
+  @media (max-width: $bp-md) {
+    font-size: $fs-sm-m;
+  }
 }
 .text-md {
   font-size: $fs-md;
+  @media (max-width: $bp-md) {
+    font-size: $fs-md-m;
+  }
 }
 .text-lg {
   font-size: $fs-lg;
+  @media (max-width: $bp-md) {
+    font-size: $fs-lg-m;
+  }
 }
 .text-xl {
   font-size: $fs-xl;
+  @media (max-width: $bp-md) {
+    font-size: $fs-xl-m;
+  }
 }
 .text-2xl {
   font-size: $fs-2xl;
+  @media (max-width: $bp-md) {
+    font-size: $fs-2xl-m;
+  }
 }
 
 /* Font weight utilities */

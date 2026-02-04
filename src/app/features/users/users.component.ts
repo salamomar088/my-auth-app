@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 
 import { AuthService } from '../../core/services/auth.service';
-import { ServiceAlert } from '../../core/services/alert/alert';
+import { AlertService } from '../../core/services/alert/alert';
 import { LocalStorageService } from '../../core/services/storage/local-storage';
 
 import { User, UsersResponse } from '../../core/interfaces/user.interface';
@@ -29,7 +29,7 @@ export class UsersComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private cdr: ChangeDetectorRef,
-    private alert: ServiceAlert,
+    private alert: AlertService,
     private storage: LocalStorageService
   ) {}
 

@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { Login } from './pages/login/login.component';
-import { Register } from './pages/register/register.component';
-import { AuthGuard } from './../core/guards/auth-guard';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 const routes: Routes = [
   {
@@ -16,11 +15,11 @@ const routes: Routes = [
     children: [
       {
         path: 'login',
-        component: Login,
+        component: LoginComponent,
       },
       {
         path: 'register',
-        component: Register,
+        component: RegisterComponent,
       },
     ],
   },

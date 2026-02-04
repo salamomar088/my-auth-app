@@ -28,6 +28,9 @@ body {
   font-size: $fs-md;
   line-height: 1.5;
   font-weight: $fw-regular;
+  @media (max-width: $bp-md) {
+    font-size: $fs-md-m;
+  }
 
   app-root {
     display: block;

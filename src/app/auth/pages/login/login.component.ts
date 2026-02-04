@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../../core/services/auth.service';
-import { ServiceAlert } from '../../../core/services/alert/alert';
+import { AlertService } from '../../../core/services/alert/alert';
 import { LoginRequest } from '../../../core/interfaces/auth.interface';
 
 @Component({
@@ -12,7 +12,7 @@ import { LoginRequest } from '../../../core/interfaces/auth.interface';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class Login implements OnInit {
+export class LoginComponent implements OnInit {
   showPassword = false;
   submited = false;
   message = '';
@@ -24,7 +24,8 @@ export class Login implements OnInit {
     private fb: FormBuilder,
     private auth: AuthService,
     private router: Router,
-    private alert: ServiceAlert
+    private alert: AlertService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -42,13 +43,12 @@ export class Login implements OnInit {
     this.submited = true;
     this.errorMessage = null;
 
-    if (this.form['email'].invalid) {
-      this.errorMessage = 'Please enter a valid email address';
-      return;
-    }
-
-    if (this.form['password'].invalid) {
-      this.errorMessage = 'Password is required';
+    if (this.loginForm.invalid) {
+      if (this.form['email'].errors) {
+        this.errorMessage = 'Please enter a valid email address';
+      } else if (this.form['password'].errors) {
+        this.errorMessage = 'Password is required';
+      }
       return;
     }
 
@@ -63,20 +63,18 @@ export class Login implements OnInit {
         this.router.navigate(['/profile']);
       },
       error: (err: unknown) => {
-        let message = 'Error occurred';
+        let message = 'Invalid email or password';
 
         if (
-          err &&
-          typeof err === 'object' &&
+          err instanceof Object &&
           'error' in err &&
-          typeof (err as any).error === 'object' &&
-          (err as any).error !== null &&
-          'message' in (err as any).error
+          typeof (err as { error?: { message?: string } }).error?.message === 'string'
         ) {
-          message = String((err as any).error.message);
+          message = (err as { error: { message: string } }).error.message;
         }
 
         this.errorMessage = message;
+        this.cdr.detectChanges();
       },
     });
   }

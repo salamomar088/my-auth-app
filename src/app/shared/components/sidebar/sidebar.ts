@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
-import { ServiceAlert } from '../../../core/services/alert/alert';
+import { AlertService } from '../../../core/services/alert/alert';
 import { LocalStorageService } from '../../../core/services/storage/local-storage';
 
 @Component({
@@ -16,7 +16,7 @@ export class Sidebar {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private alert: ServiceAlert,
+    private alert: AlertService,
     private storage: LocalStorageService
   ) {}
 

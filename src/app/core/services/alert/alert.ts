@@ -4,7 +4,7 @@ import Swal, { SweetAlertIcon } from 'sweetalert2';
 @Injectable({
   providedIn: 'root',
 })
-export class ServiceAlert {
+export class AlertService {
   private lastMessage: string | null = null;
   private lastShownAt = 0;
   private DUPLICATE_WINDOW = 2000; // ms

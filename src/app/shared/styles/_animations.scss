@@ -1,0 +1,76 @@
+@keyframes lift-hover {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes avatar-hover {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-2px);
+  }
+}
+
+@mixin hover-lift($distance: -2px, $shadow: null) {
+  transition: transform $transition-normal, box-shadow $transition-normal;
+
+  &:hover {
+    transform: translateY($distance);
+
+    @if $shadow != null {
+      box-shadow: $shadow;
+    }
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+@mixin fill-rounded-hover($bg: white, $text: $color-primary, $duration: 0.65s) {
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+  transition: color $duration, transform $transition-normal;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: $bg;
+    border-radius: inherit;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform $duration cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: -1;
+  }
+
+  &:hover {
+    color: $text;
+    transform: translateY(-2px);
+
+    &::before {
+      transform: scaleX(1);
+    }
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+@keyframes message-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../core/services/auth.service';
-import { ServiceAlert } from '../../core/services/alert/alert';
+import { AlertService } from '../../core/services/alert/alert';
 import { UserProfile } from '../../core/interfaces/profile.interface';
 
 @Component({
@@ -21,7 +21,7 @@ export class ProfileComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private cdr: ChangeDetectorRef,
-    private alert: ServiceAlert
+    private alert: AlertService
   ) {}
 
   ngOnInit(): void {
