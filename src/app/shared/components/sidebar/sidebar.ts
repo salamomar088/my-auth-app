@@ -10,8 +10,8 @@ import { LocalStorageService } from '../../../core/services/storage/local-storag
   styleUrls: ['./sidebar.scss'],
   standalone: false,
 })
-export class Sidebar {
-  open = false;
+export class SidebarComponent {
+  isOpen = false;
 
   constructor(
     private authService: AuthService,
@@ -20,11 +20,15 @@ export class Sidebar {
     private storage: LocalStorageService
   ) {}
 
+  toggleSidebar(): void {
+    this.isOpen = !this.isOpen;
+  }
+
   logout(): void {
     this.authService.logout();
     this.alert.info('You have been logged out');
     this.router.navigate(['/login']);
-    this.open = false;
+    this.isOpen = false;
   }
 
   isLoggedIn(): boolean {
