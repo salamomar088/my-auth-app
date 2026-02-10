@@ -7,36 +7,70 @@
   min-width: 72px;
   flex: 0 0 72px;
   height: 100vh;
-
   background: $sidebar-gradient;
   color: white;
-
   display: flex;
   flex-direction: column;
   overflow: hidden;
   position: relative;
-
   padding: 16px 10px;
-
-  transition: width $transition-normal cubic-bezier(0.16, 1, 0.3, 1),
-    min-width $transition-normal cubic-bezier(0.16, 1, 0.3, 1),
-    flex-basis $transition-normal cubic-bezier(0.16, 1, 0.3, 1);
-
+  box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.04);
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    min-width 0.35s cubic-bezier(0.16, 1, 0.3, 1), flex-basis 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   @include unselectable;
-}
 
-.sidebar.open {
-  width: 270px;
-  min-width: 270px;
-  flex: 0 0 270px;
-  padding: 22px 18px;
-}
+  &.open {
+    width: 270px;
+    min-width: 270px;
+    flex: 0 0 270px;
+    padding: 22px 18px;
+  }
 
-.sidebar-header {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 28px;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.03),
+      transparent 30%,
+      transparent 70%,
+      rgba(0, 0, 0, 0.25)
+    );
+    pointer-events: none;
+  }
+
+  &-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 34px;
+  }
+
+  &-section {
+    margin-bottom: 30px;
+  }
+
+  &-footer {
+    margin-top: auto;
+    padding-top: 16px;
+  }
+
+  &:not(.open) {
+    .app-name,
+    .section-label,
+    .nav-item span,
+    .logout-btn span {
+      display: none;
+    }
+    .nav-item,
+    .logout-btn {
+      justify-content: center;
+    }
+    .sidebar-header {
+      justify-content: center;
+    }
+  }
 }
 
 .app-icon {
@@ -45,9 +79,13 @@
   border-radius: $radius-md;
   background: $accent-glow;
   cursor: pointer;
-
   @include flex-center;
   @include hover-lift(-2px);
+
+  &:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  }
 }
 
 .zap {
@@ -61,48 +99,47 @@
   font-weight: $fw-semibold;
 }
 
-.sidebar-section {
-  margin-bottom: 24px;
-}
-
 .section-label {
   @include text-xs;
   font-weight: $fw-semibold;
   color: $color-text-muted;
-  margin-bottom: 10px;
-  letter-spacing: 0.1em;
+  margin-bottom: 14px;
+  letter-spacing: 0.12em;
+  opacity: 0.7;
 }
 
 .nav-item {
   display: flex;
   align-items: center;
   gap: 14px;
-
-  padding: 11px 14px;
-  border-radius: $radius-md;
+  padding: 13px 16px;
+  border-radius: 14px;
   color: $color-text-muted;
   text-decoration: none;
-
-  transition: $transition-fast;
-
+  transition: transform 0.18s ease, background 0.25s ease, box-shadow 0.25s ease;
   @include hover-lift(-2px);
   @include fill-rounded-hover(rgba(255, 255, 255, 0.12), white, 0.35s, left);
-}
 
-.nav-item img {
-  width: 18px;
-  filter: brightness(0) invert(1);
-}
+  img {
+    width: 18px;
+    opacity: 0.9;
+    filter: brightness(0) invert(1);
+  }
 
-.nav-item.active {
-  background: $accent-glow;
-  color: white;
-  box-shadow: $shadow-soft;
-}
+  &:hover {
+    transform: translateX(3px);
+    background: rgba(255, 255, 255, 0.06);
 
-.sidebar-footer {
-  margin-top: auto;
-  padding-top: 16px;
+    img {
+      filter: brightness(1.2);
+    }
+  }
+
+  &.active {
+    background: linear-gradient(135deg, #6a38c2, #22d3ee);
+    color: white;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  }
 }
 
 .logout-btn {
@@ -110,42 +147,21 @@
   display: flex;
   align-items: center;
   gap: 12px;
-
   padding: 12px 14px;
   border-radius: $radius-pill;
   border: none;
-
   background: rgba(255, 255, 255, 0.08);
   color: white;
   cursor: pointer;
-
   @include hover-lift(-2px);
   @include fill-rounded-hover(white, $color-primary, 0.35s, left);
+
+  img {
+    width: 18px;
+    filter: brightness(0) invert(1);
+  }
 }
 
-.logout-btn img {
-  width: 18px;
-  filter: brightness(0) invert(1);
-}
-
-/* collapsed text hide */
-.sidebar:not(.open) .app-name,
-.sidebar:not(.open) .section-label,
-.sidebar:not(.open) .nav-item span,
-.sidebar:not(.open) .logout-btn span {
-  display: none;
-}
-
-.sidebar:not(.open) .nav-item,
-.sidebar:not(.open) .logout-btn {
-  justify-content: center;
-}
-
-.sidebar:not(.open) .sidebar-header {
-  justify-content: center;
-}
-
-/* tablet */
 @include lg-down {
   .sidebar.open {
     width: 250px;
@@ -154,7 +170,6 @@
   }
 }
 
-/* small laptop */
 @include md-down {
   .sidebar.open {
     width: 230px;
@@ -163,17 +178,29 @@
   }
 }
 
-/* mobile always collapsed */
-@include sm-down {
-  .sidebar {
-    width: 72px !important;
-    min-width: 72px !important;
-    flex: 0 0 72px !important;
+.sidebar {
+  @media (min-height: 900px) {
+    &-section {
+      margin-bottom: 32px;
+    }
+    &-footer {
+      padding-bottom: 20px;
+    }
+    .nav-item {
+      padding: 14px 16px;
+    }
   }
 
-  .sidebar.open {
-    width: 72px !important;
-    min-width: 72px !important;
-    flex: 0 0 72px !important;
+  @media (min-height: 1100px) {
+    padding-top: 28px;
+    padding-bottom: 28px;
+
+    &-section {
+      margin-bottom: 42px;
+    }
+
+    .nav-item {
+      padding: 16px 18px;
+    }
   }
 }

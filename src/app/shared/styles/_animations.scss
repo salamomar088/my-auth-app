@@ -20,6 +20,15 @@
   }
 }
 
+@keyframes sidebar-sheen {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
 @mixin hover-lift($distance: -2px, $shadow: null) {
   transition: transform $transition-normal cubic-bezier(0.16, 1, 0.3, 1),
     box-shadow $transition-normal;
@@ -37,7 +46,6 @@
   }
 }
 
-/* Fill background on hover with rounded edges (buttons, pills) */
 @mixin fill-rounded-hover($bg: white, $text: $color-primary, $duration: 0.65s, $origin: center) {
   position: relative;
   overflow: hidden;
@@ -70,11 +78,33 @@
     transform: translateY(0);
   }
 }
-/* Animation classes */
-.animate-fade-in {
-  animation: message-fade-in 0.25s ease-out both;
+
+@mixin sidebar-slide {
+  transition: width 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+    min-width 0.42s cubic-bezier(0.16, 1, 0.3, 1), flex-basis 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+    padding 0.3s ease;
 }
 
-.animate-lift {
-  animation: lift 0.25s ease-out forwards;
+@mixin sidebar-text-hidden {
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+@mixin sidebar-text-visible {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.18s;
+}
+
+@mixin sidebar-gap-transition {
+  transition: transform 0.2s ease, background 0.25s ease, padding 0.3s ease, gap 0.3s ease;
+}
+@mixin sidebar-sheen {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+  animation: sidebar-sheen 0.6s ease;
+  pointer-events: none;
 }
