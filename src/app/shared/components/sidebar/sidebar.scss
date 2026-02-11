@@ -204,3 +204,131 @@
     }
   }
 }
+
+@include sm-down {
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    height: 100vh;
+    z-index: 1000;
+    background: none !important;
+
+    &::before {
+      content: '';
+      position: fixed;
+      top: 8px;
+      left: 8px;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: $sidebar-gradient;
+      transform: scale(0);
+      transform-origin: center center;
+      transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .sidebar-header {
+      position: relative;
+      z-index: 3;
+    }
+
+    .sidebar-panel {
+      position: relative;
+      z-index: 2;
+    }
+
+    &.open {
+      width: 100%;
+      min-width: 100%;
+      flex: 0 0 100%;
+
+      &::before {
+        transform: scale(28);
+      }
+
+      .sidebar-panel {
+        width: 100%;
+        max-width: 420px;
+        height: 100%;
+
+        margin: 0 auto;
+        padding: 40px 24px 28px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 28px;
+      }
+
+      .sidebar-section {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 6px;
+        margin-top: 40px;
+      }
+
+      .sidebar-footer {
+        display: block;
+        width: 100%;
+        max-width: 190px;
+        margin-top: 12px;
+        margin-bottom: 20px;
+      }
+
+      .app-name {
+        display: block;
+      }
+
+      .nav-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 190px;
+        padding: 14px 18px;
+        border-radius: 18px;
+        margin-bottom: 10px;
+        gap: 12px;
+      }
+
+      .nav-item span {
+        display: inline;
+      }
+
+      .logout-btn {
+        width: 100%;
+        padding: 14px 20px;
+        border-radius: 22px;
+        justify-content: center;
+      }
+
+      .sidebar-header {
+        position: absolute;
+        top: 18px;
+        left: 18px;
+        justify-content: flex-start;
+      }
+    }
+
+    &:not(.open) {
+      width: 72px;
+      min-width: 72px;
+      flex: 0 0 72px;
+
+      .sidebar-section,
+      .sidebar-footer,
+      .nav-item span,
+      .app-name {
+        display: none !important;
+      }
+
+      .sidebar-header {
+        justify-content: center;
+      }
+    }
+  }
+}

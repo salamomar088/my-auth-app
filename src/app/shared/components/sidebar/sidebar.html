@@ -1,68 +1,70 @@
 @if (isLoggedIn()) {
 <aside class="sidebar" [class.open]="isOpen">
-  <div class="sidebar-header">
-    <div class="app-icon" (click)="toggleSidebar()">
-      <svg viewBox="0 0 24 24" class="zap">
-        <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" />
-      </svg>
+  <div class="sidebar-panel">
+    <div class="sidebar-header">
+      <div class="app-icon" (click)="toggleSidebar()">
+        <svg viewBox="0 0 24 24" class="zap">
+          <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" />
+        </svg>
+      </div>
+
+      <h2 class="app-name text-lg fw-bold">MyAuthApp</h2>
     </div>
 
-    <h2 class="app-name text-lg fw-bold">MyAuthApp</h2>
-  </div>
+    <div class="sidebar-section">
+      <p class="section-label text-xs fw-bold">MAIN MENU</p>
 
-  <div class="sidebar-section">
-    <p class="section-label text-xs fw-bold">MAIN MENU</p>
+      <a
+        routerLink="/dashboard"
+        routerLinkActive="active"
+        (click)="closeSidebar()"
+        class="nav-item text-sm fw-semibold"
+      >
+        <img src="/icons/dashboard.svg" />
+        <span>Dashboard</span>
+      </a>
 
-    <a
-      routerLink="/dashboard"
-      routerLinkActive="active"
-      (click)="closeSidebar()"
-      class="nav-item text-sm fw-semibold"
-    >
-      <img src="/icons/dashboard.svg" />
-      <span>Dashboard</span>
-    </a>
+      <a
+        routerLink="/profile"
+        routerLinkActive="active"
+        (click)="closeSidebar()"
+        class="nav-item text-sm fw-semibold"
+      >
+        <img src="/icons/user.svg" />
+        <span>Profile</span>
+      </a>
+    </div>
 
-    <a
-      routerLink="/profile"
-      routerLinkActive="active"
-      (click)="closeSidebar()"
-      class="nav-item text-sm fw-semibold"
-    >
-      <img src="/icons/user.svg" />
-      <span>Profile</span>
-    </a>
-  </div>
+    <div class="sidebar-section">
+      <p class="section-label text-xs fw-bold">RESOURCES</p>
 
-  <div class="sidebar-section">
-    <p class="section-label text-xs fw-bold">RESOURCES</p>
+      <a
+        routerLink="/users"
+        routerLinkActive="active"
+        (click)="closeSidebar()"
+        class="nav-item text-sm fw-semibold"
+      >
+        <img src="/icons/users.svg" />
+        <span>Users</span>
+      </a>
 
-    <a
-      routerLink="/users"
-      routerLinkActive="active"
-      (click)="closeSidebar()"
-      class="nav-item text-sm fw-semibold"
-    >
-      <img src="/icons/users.svg" />
-      <span>Users</span>
-    </a>
+      <a
+        routerLink="/api-docs"
+        routerLinkActive="active"
+        (click)="closeSidebar()"
+        class="nav-item text-sm fw-semibold"
+      >
+        <img src="/icons/document.svg" />
+        <span>API Docs</span>
+      </a>
+    </div>
 
-    <a
-      routerLink="/api-docs"
-      routerLinkActive="active"
-      (click)="closeSidebar()"
-      class="nav-item text-sm fw-semibold"
-    >
-      <img src="/icons/document.svg" />
-      <span>API Docs</span>
-    </a>
-  </div>
-
-  <div class="sidebar-footer">
-    <button class="logout-btn text-sm fw-semibold" (click)="logout()">
-      <img src="/icons/logout.svg" />
-      <span>Sign Out</span>
-    </button>
+    <div class="sidebar-footer">
+      <button class="logout-btn text-sm fw-semibold" (click)="logout()">
+        <img src="/icons/logout.svg" />
+        <span>Sign Out</span>
+      </button>
+    </div>
   </div>
 </aside>
 }
