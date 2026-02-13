@@ -1,6 +1,13 @@
 @import '../../shared/styles/mixins';
 @import '../../shared/styles/variables';
 
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: $color-dark-bg;
+}
+
 .users-container {
   @include unselectable;
   min-height: 100%;
@@ -12,7 +19,7 @@
 .header {
   max-width: 980px;
   margin: 0 auto 16px;
-  color: $color-text-main;
+  color: $color-surface;
 }
 
 .users-search {

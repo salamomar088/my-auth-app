@@ -1,0 +1,87 @@
+@if (!loading && vm) {
+
+<div class="dashboard">
+  <div class="dashboard-inner">
+    <!-- BIG CARD -->
+    <div class="dashboard-card dashboard-card--big dashboard-glow">
+      <div class="dashboard-card-header dashboard-card-header--between mb-md">
+        <div>
+          <h2 class="text-lg fw-semibold">Registrations Overview</h2>
+          <p class="text-sm text-muted">Users registrations by day</p>
+        </div>
+
+        <div class="dashboard-metric text-right">
+          <div class="metric-value text-xl fw-bold">{{ vm.totalUsers }}</div>
+          <div class="metric-label text-xs text-muted">Total Users</div>
+        </div>
+      </div>
+
+      <div class="dashboard-chart">
+        <apx-chart
+          [series]="chartOptions.series"
+          [chart]="chartOptions.chart"
+          [xaxis]="chartOptions.xaxis"
+          [dataLabels]="chartOptions.dataLabels"
+          [stroke]="chartOptions.stroke"
+          [title]="chartOptions.title"
+        ></apx-chart>
+      </div>
+    </div>
+
+    <!-- GRID -->
+    <div class="dashboard-grid">
+      <!-- USERS -->
+      <div class="dashboard-card dashboard-card--small dashboard-glass">
+        <div class="dashboard-card-header dashboard-card-header--between mb-sm">
+          <h3 class="text-md fw-semibold">Total Users</h3>
+          <span class="metric-value text-lg fw-bold">{{ vm.totalUsers }}</span>
+        </div>
+
+        <div class="dashboard-chart">
+          <apx-chart
+            [series]="smallUsersChart.series"
+            [chart]="smallUsersChart.chart"
+            [xaxis]="smallUsersChart.xaxis"
+            [title]="smallUsersChart.title"
+          ></apx-chart>
+        </div>
+      </div>
+
+      <!-- VISITS -->
+      <div class="dashboard-card dashboard-card--small dashboard-glass">
+        <div class="dashboard-card-header dashboard-card-header--between mb-sm">
+          <h3 class="text-md fw-semibold">Visits Today</h3>
+          <span class="metric-value text-lg fw-bold">{{ vm.visitsToday }}</span>
+        </div>
+
+        <div class="dashboard-chart">
+          <apx-chart
+            [series]="visitsChart.series"
+            [chart]="visitsChart.chart"
+            [xaxis]="visitsChart.xaxis"
+            [title]="visitsChart.title"
+          ></apx-chart>
+        </div>
+      </div>
+
+      <!-- GROWTH -->
+      <div class="dashboard-card dashboard-card--small dashboard-glass">
+        <div class="dashboard-card-header dashboard-card-header--between mb-sm">
+          <h3 class="text-md fw-semibold">Growth</h3>
+          <span class="metric-value text-lg fw-bold">{{ vm.usersThisWeek }}</span>
+        </div>
+
+        <div class="dashboard-chart">
+          <apx-chart
+            [series]="growthChart.series"
+            [chart]="growthChart.chart"
+            [xaxis]="growthChart.xaxis"
+            [title]="growthChart.title"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+}
