@@ -12,6 +12,7 @@ import { LocalStorageService } from '../../../core/services/storage/local-storag
 })
 export class SidebarComponent {
   isOpen = false;
+  showLogoutModal = false;
 
   constructor(
     private authService: AuthService,
@@ -29,11 +30,22 @@ export class SidebarComponent {
 
   logout(): void {
     this.authService.logout();
-    this.alert.info('You have been logged out');
+
     this.router.navigate(['/login']);
     this.isOpen = false;
   }
+  openLogoutModal(): void {
+    this.showLogoutModal = true;
+  }
 
+  closeLogoutModal(): void {
+    this.showLogoutModal = false;
+  }
+
+  confirmLogout(): void {
+    this.showLogoutModal = false;
+    this.logout();
+  }
   isLoggedIn(): boolean {
     return this.storage.isAuthenticated();
   }

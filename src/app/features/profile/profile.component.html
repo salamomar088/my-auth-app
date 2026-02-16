@@ -14,7 +14,7 @@
         </div>
       </div>
 
-      <button class="logout-btn mt-lg" (click)="logout()">
+      <button class="logout-btn mt-lg" (click)="openLogoutModal()">
         <img src="/icons/logout.svg" alt="" />
 
         <span class="logout-text">
@@ -84,3 +84,15 @@
     }
   </div>
 </div>
+@if (showLogoutModal) {
+<div class="logout-modal">
+  <div class="modal-card">
+    <h3>Are you sure you want to sign out?</h3>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" (click)="closeLogoutModal()">Cancel</button>
+      <button class="btn-danger" (click)="confirmLogout()">Sign out</button>
+    </div>
+  </div>
+</div>
+}

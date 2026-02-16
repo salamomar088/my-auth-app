@@ -16,6 +16,7 @@ export class ProfileComponent implements OnInit {
   loading = true;
   error: string | null = null;
   showImage = false;
+  showLogoutModal = false;
 
   constructor(
     private authService: AuthService,
@@ -60,7 +61,18 @@ export class ProfileComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
-    this.alert.info('You have been logged out');
     this.router.navigate(['/auth/login']);
+  }
+  openLogoutModal(): void {
+    this.showLogoutModal = true;
+  }
+
+  closeLogoutModal(): void {
+    this.showLogoutModal = false;
+  }
+
+  confirmLogout(): void {
+    this.showLogoutModal = false;
+    this.logout();
   }
 }
