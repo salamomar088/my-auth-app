@@ -2,114 +2,95 @@
 @import '../../../../shared/styles/mixins';
 @import '../../../../shared/styles/animations';
 
-:host {
-  display: block;
-  width: 100%;
-  height: 100%;
+.dashboard {
+  padding: 24px;
+  min-height: 100vh;
   background: $color-dark-bg;
 }
 
-.dashboard {
-  padding: 24px;
-}
-
 .dashboard-inner {
-  max-width: 1400px;
+  max-width: 1300px;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
 }
-
-/* ================= CARD BASE ================= */
 
 .dashboard-card {
-  position: relative;
-  background: $color-surface;
   border-radius: $radius-lg;
-  box-shadow: $shadow-soft;
   padding: 22px;
+  background: $card-gradient;
+  position: relative;
   overflow: hidden;
+  box-shadow: $shadow-card;
 
-  @include hover-lift(-4px, $shadow-card);
+  @include hover-lift(-2px, $shadow-soft);
+
+  &--big {
+    margin-bottom: 22px;
+  }
+
+  &--small {
+    height: 100%;
+  }
+  &-header {
+    color: $color-surface;
+  }
 }
 
-/* HEADER */
+.dashboard-glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: $accent-glow;
+  opacity: 0.06;
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+.dashboard-glass {
+  @include glass;
+}
+
 .dashboard-card-header {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  &--between {
+    @include flex-between;
+  }
 }
 
-.dashboard-card-header--between {
-  @include flex-between;
-}
-
-/* METRIC */
 .metric-value {
-  color: $color-text-main;
+  color: white;
 }
 
 .metric-label {
   color: $color-text-muted;
 }
 
-/* ================= GRID ================= */
+.dashboard-chart {
+  margin-top: 10px;
+}
 
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
+  gap: 18px;
 
-/* ================= GLOW ================= */
-
-.dashboard-glow::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: $accent-glow;
-  opacity: 0.08;
-  pointer-events: none;
-}
-
-/* ================= GLASS ================= */
-
-.dashboard-glass {
-  @include glass;
-}
-
-/* ================= HOVER SHEEN ================= */
-
-.dashboard-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.08), transparent);
-  transform: translateX(-100%);
-  opacity: 0;
-  pointer-events: none;
-}
-
-.dashboard-card:hover::after {
-  opacity: 1;
-  animation: sidebar-sheen 0.7s ease;
-}
-
-/* ================= RESPONSIVE ================= */
-
-@include md-down {
-  .dashboard-grid {
+  @include md-down {
     grid-template-columns: repeat(2, 1fr);
   }
-}
 
-@include sm-down {
-  .dashboard {
-    padding: 16px;
-  }
-
-  .dashboard-grid {
+  @include sm-down {
     grid-template-columns: 1fr;
   }
+}
+.apexcharts-tooltip {
+  backdrop-filter: blur(10px);
+  background: rgba(15, 23, 42, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+
+  &-series path {
+    transition: 0.35s ease;
+  }
+}
+.dashboard-card:hover .apexcharts-series path {
+  filter: brightness(1.1);
 }

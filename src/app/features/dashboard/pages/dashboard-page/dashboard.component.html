@@ -2,7 +2,6 @@
 
 <div class="dashboard">
   <div class="dashboard-inner">
-    <!-- BIG CARD -->
     <div class="dashboard-card dashboard-card--big dashboard-glow">
       <div class="dashboard-card-header dashboard-card-header--between mb-md">
         <div>
@@ -20,17 +19,15 @@
         <apx-chart
           [series]="chartOptions.series"
           [chart]="chartOptions.chart"
-          [xaxis]="chartOptions.xaxis"
-          [dataLabels]="chartOptions.dataLabels"
-          [stroke]="chartOptions.stroke"
-          [title]="chartOptions.title"
+          [xaxis]="chartOptions.xaxis!"
+          [dataLabels]="chartOptions.dataLabels!"
+          [stroke]="chartOptions.stroke!"
+          [title]="chartOptions.title!"
         ></apx-chart>
       </div>
     </div>
 
-    <!-- GRID -->
     <div class="dashboard-grid">
-      <!-- USERS -->
       <div class="dashboard-card dashboard-card--small dashboard-glass">
         <div class="dashboard-card-header dashboard-card-header--between mb-sm">
           <h3 class="text-md fw-semibold">Total Users</h3>
@@ -41,13 +38,13 @@
           <apx-chart
             [series]="smallUsersChart.series"
             [chart]="smallUsersChart.chart"
-            [xaxis]="smallUsersChart.xaxis"
-            [title]="smallUsersChart.title"
+            [plotOptions]="smallUsersChart.plotOptions!"
+            [fill]="smallUsersChart.fill!"
+            [labels]="smallUsersChart.labels!"
           ></apx-chart>
         </div>
       </div>
 
-      <!-- VISITS -->
       <div class="dashboard-card dashboard-card--small dashboard-glass">
         <div class="dashboard-card-header dashboard-card-header--between mb-sm">
           <h3 class="text-md fw-semibold">Visits Today</h3>
@@ -58,13 +55,15 @@
           <apx-chart
             [series]="visitsChart.series"
             [chart]="visitsChart.chart"
-            [xaxis]="visitsChart.xaxis"
-            [title]="visitsChart.title"
+            [xaxis]="visitsChart.xaxis!"
+            [plotOptions]="visitsChart.plotOptions!"
+            [dataLabels]="visitsChart.dataLabels!"
+            [grid]="visitsChart.grid!"
+            [fill]="visitsChart.fill!"
           ></apx-chart>
         </div>
       </div>
 
-      <!-- GROWTH -->
       <div class="dashboard-card dashboard-card--small dashboard-glass">
         <div class="dashboard-card-header dashboard-card-header--between mb-sm">
           <h3 class="text-md fw-semibold">Growth</h3>
@@ -75,8 +74,12 @@
           <apx-chart
             [series]="growthChart.series"
             [chart]="growthChart.chart"
-            [xaxis]="growthChart.xaxis"
-            [title]="growthChart.title"
+            [xaxis]="growthChart.xaxis!"
+            [stroke]="growthChart.stroke!"
+            [plotOptions]="growthChart.plotOptions!"
+            [dataLabels]="growthChart.dataLabels!"
+            [grid]="growthChart.grid!"
+            [fill]="growthChart.fill!"
           ></apx-chart>
         </div>
       </div>
