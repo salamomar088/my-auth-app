@@ -62,31 +62,21 @@ export class LoginComponent implements OnInit {
         this.alert.success('Login successful. Welcome aboard!');
         this.router.navigate(['/profile']);
       },
- this.auth.register(formData).subscribe({
-  next: () => {
-    this.alert.success('Registration successful. Please log in.');
-    this.router.navigate(['/login']);
-  },
+      error: (err: unknown) => {
+        let message = 'Invalid email or password';
 
-  error: (err: unknown) => {
-    let message = 'Registration failed';
+        if (
+          err instanceof Object &&
+          'error' in err &&
+          typeof (err as { error?: { message?: string } }).error?.message === 'string'
+        ) {
+          message = (err as { error: { message: string } }).error.message;
+        }
 
-    if (
-      err &&
-      typeof err === 'object' &&
-      'error' in err &&
-      typeof (err as any).error === 'object' &&
-      (err as any).error !== null &&
-      'message' in (err as any).error
-    ) {
-      message = String((err as any).error.message);
-    }
-
-    this.errorMessage = message;
-    this.cdr.detectChanges();
-  }
-});
-
+        this.errorMessage = message;
+        this.cdr.detectChanges();
+      },
+    });
   }
 
   goToRegister(): void {
