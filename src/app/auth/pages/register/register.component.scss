@@ -7,12 +7,12 @@
 }
 
 .auth-wrapper {
-  @include auth-wrapper-base;
+  @include auth-wrapper-base();
   position: relative;
 }
 
 .auth-left {
-  @include auth-left-panel;
+  @include auth-left-panel();
   transform: translateZ(0);
 
   &::after {
@@ -67,7 +67,7 @@
 }
 
 .auth-right {
-  @include auth-right-panel;
+  @include auth-right-panel();
   background: $color-surface;
   position: relative;
 }

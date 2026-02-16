@@ -7,11 +7,11 @@
 }
 
 .auth-wrapper {
-  @include auth-wrapper-base;
+  @include auth-wrapper-base();
 }
 
 .auth-left {
-  @include auth-left-panel;
+  @include auth-left-panel();
 
   &::after {
     display: none;
@@ -64,7 +64,7 @@
 }
 
 .auth-right {
-  @include auth-right-panel;
+  @include auth-right-panel();
 }
 
 .card {

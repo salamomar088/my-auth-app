@@ -215,3 +215,94 @@
   max-height: $max;
   overflow-y: auto;
 }
+
+/* signout animated  */
+@mixin logout-btn {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-radius: $radius-pill;
+  border: none;
+  background: rgba(255, 255, 255, 0.06);
+  color: white;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.2s ease, gap 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+
+  img {
+    width: 18px;
+    filter: brightness(0) invert(1);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 2;
+  }
+
+  .logout-text {
+    display: flex;
+    gap: 2px;
+    z-index: 2;
+
+    span {
+      display: inline-block;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease;
+    }
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: white;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1;
+  }
+
+  &:hover {
+    gap: 18px;
+  }
+
+  &:hover::before {
+    transform: scaleX(1);
+  }
+
+  &:hover img {
+    transform: translateX(-20px) scale(1.15);
+    filter: brightness(0) saturate(100%) invert(18%) sepia(97%) saturate(7490%) hue-rotate(282deg)
+      brightness(104%) contrast(104%);
+  }
+
+  &:hover .logout-text span {
+    color: #cc00ff;
+  }
+
+  &:hover .logout-text span:nth-child(1) {
+    transform: translateY(-8px) scale(1.1);
+  }
+  &:hover .logout-text span:nth-child(2) {
+    transform: translateY(8px) scale(1.1);
+  }
+  &:hover .logout-text span:nth-child(3) {
+    transform: translateY(-8px) scale(1.1);
+  }
+  &:hover .logout-text span:nth-child(4) {
+    transform: translateY(8px) scale(1.1);
+  }
+  &:hover .logout-text span:nth-child(5) {
+    transform: translateY(-8px) scale(1.1);
+  }
+  &:hover .logout-text span:nth-child(6) {
+    transform: translateY(8px) scale(1.1);
+  }
+  &:hover .logout-text span:nth-child(7) {
+    transform: translateY(-8px) scale(1.1);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}

@@ -58,22 +58,7 @@
       }
 
       .logout-btn {
-        margin-top: 32px;
-        padding: 12px;
-        border-radius: $radius-pill;
-        background: rgba(255, 255, 255, 0.08);
-        border: none;
-        color: white;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-
-        img {
-          width: 18px;
-          filter: brightness(0) invert(1);
-        }
+        @include logout-btn;
       }
     }
 

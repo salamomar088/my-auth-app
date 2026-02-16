@@ -106,20 +106,28 @@ export class RegisterComponent {
     if (this.selectedImage) {
       formData.append('avatar', this.selectedImage);
     }
-
     this.auth.register(formData).subscribe({
       next: () => {
         this.alert.success('Registration successful. Please log in.');
         this.router.navigate(['/login']);
       },
+
       error: (err: unknown) => {
         let message = 'Registration failed';
 
-        if (err && typeof err === 'object' && 'message' in err) {
-          message = String((err as { message?: string }).message);
+        if (
+          err &&
+          typeof err === 'object' &&
+          'error' in err &&
+          typeof (err as any).error === 'object' &&
+          (err as any).error !== null &&
+          'message' in (err as any).error
+        ) {
+          message = String((err as any).error.message);
         }
 
         this.errorMessage = message;
+        this.cd.detectChanges();
       },
     });
   }

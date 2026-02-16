@@ -6,80 +6,82 @@
   padding: 24px;
   min-height: 100vh;
   background: $color-dark-bg;
-}
 
-.dashboard-inner {
-  max-width: 1300px;
-  margin: 0 auto;
-}
-
-.dashboard-card {
-  border-radius: $radius-lg;
-  padding: 22px;
-  background: $card-gradient;
-  position: relative;
-  overflow: hidden;
-  box-shadow: $shadow-card;
-
-  @include hover-lift(-2px, $shadow-soft);
-
-  &--big {
-    margin-bottom: 22px;
+  .dashboard-inner {
+    max-width: 1300px;
+    margin: 0 auto;
   }
 
-  &--small {
-    height: 100%;
-  }
-  &-header {
-    color: $color-surface;
-  }
-}
+  .dashboard-card {
+    border-radius: $radius-lg;
+    padding: 22px;
+    background: $card-gradient;
+    position: relative;
+    overflow: hidden;
+    box-shadow: $shadow-card;
 
-.dashboard-glow::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: $accent-glow;
-  opacity: 0.06;
-  filter: blur(60px);
-  pointer-events: none;
-}
+    @include hover-lift(-2px, $shadow-soft);
 
-.dashboard-glass {
-  @include glass;
-}
+    &--big {
+      margin-bottom: 22px;
+    }
 
-.dashboard-card-header {
-  &--between {
-    @include flex-between;
-  }
-}
+    &--small {
+      height: 100%;
+    }
 
-.metric-value {
-  color: white;
-}
-
-.metric-label {
-  color: $color-text-muted;
-}
-
-.dashboard-chart {
-  margin-top: 10px;
-}
-
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-
-  @include md-down {
-    grid-template-columns: repeat(2, 1fr);
+    &-header {
+      color: $color-surface;
+    }
   }
 
-  @include sm-down {
-    grid-template-columns: 1fr;
+  .dashboard-glow::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: $accent-glow;
+    opacity: 0.06;
+    filter: blur(60px);
+    pointer-events: none;
+  }
+
+  .dashboard-glass {
+    @include glass;
+  }
+
+  .dashboard-card-header {
+    &--between {
+      @include flex-between;
+    }
+  }
+
+  .metric-value {
+    color: white;
+  }
+
+  .metric-label {
+    color: $color-text-muted;
+  }
+
+  .dashboard-chart {
+    margin-top: 10px;
+  }
+
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+
+    @include md-down {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include sm-down {
+      grid-template-columns: 1fr;
+    }
   }
 }
+
 .apexcharts-tooltip {
   backdrop-filter: blur(10px);
   background: rgba(15, 23, 42, 0.8) !important;
@@ -91,6 +93,7 @@
     transition: 0.35s ease;
   }
 }
+
 .dashboard-card:hover .apexcharts-series path {
   filter: brightness(1.1);
 }

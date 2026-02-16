@@ -144,25 +144,8 @@
   }
 
   .logout-btn {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 14px;
-    border-radius: $radius-pill;
-    border: none;
-    background: rgba(255, 255, 255, 0.08);
-    color: white;
-    cursor: pointer;
-    @include hover-lift(-2px);
-    @include fill-rounded-hover(white, $color-primary, 0.35s, left);
-
-    img {
-      width: 18px;
-      filter: brightness(0) invert(1);
-    }
+    @include logout-btn;
   }
-
   @media (min-height: 900px) {
     &-section {
       margin-bottom: 32px;
