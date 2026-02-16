@@ -59,7 +59,6 @@ export class LoginComponent implements OnInit {
 
     this.auth.login(payload).subscribe({
       next: () => {
-        this.alert.success('Login successful. Welcome aboard!');
         this.router.navigate(['/profile']);
       },
       error: (err: unknown) => {

@@ -108,7 +108,6 @@ export class RegisterComponent {
     }
     this.auth.register(formData).subscribe({
       next: () => {
-        this.alert.success('Registration successful. Please log in.');
         this.router.navigate(['/login']);
       },
 

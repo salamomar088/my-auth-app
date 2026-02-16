@@ -280,28 +280,6 @@
     color: #cc00ff;
   }
 
-  &:hover .logout-text span:nth-child(1) {
-    transform: translateY(-8px) scale(1.1);
-  }
-  &:hover .logout-text span:nth-child(2) {
-    transform: translateY(8px) scale(1.1);
-  }
-  &:hover .logout-text span:nth-child(3) {
-    transform: translateY(-8px) scale(1.1);
-  }
-  &:hover .logout-text span:nth-child(4) {
-    transform: translateY(8px) scale(1.1);
-  }
-  &:hover .logout-text span:nth-child(5) {
-    transform: translateY(-8px) scale(1.1);
-  }
-  &:hover .logout-text span:nth-child(6) {
-    transform: translateY(8px) scale(1.1);
-  }
-  &:hover .logout-text span:nth-child(7) {
-    transform: translateY(-8px) scale(1.1);
-  }
-
   &:active {
     transform: scale(0.95);
   }

@@ -11,7 +11,6 @@
 .profile-page {
   min-height: 100%;
   width: 100%;
-  background: $color-dark-bg;
   padding: 32px;
 
   .profile-layout {
@@ -23,7 +22,6 @@
     margin: 0 auto;
 
     .profile-sidebar {
-      background: $sidebar-gradient;
       border-radius: $radius-lg;
       padding: 24px;
       display: flex;
