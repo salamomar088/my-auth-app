@@ -206,30 +206,27 @@
     padding: 24px;
 
     .profile-layout {
-      grid-template-columns: 1fr;
+      display: block;
 
       .profile-sidebar {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
+        background: transparent;
+        padding: 15px;
+        margin-bottom: -20px;
+        display: flex;
+        justify-content: center;
 
         .avatar-block {
-          display: flex;
-          align-items: center;
-          gap: 16px;
-          text-align: left;
-
           .avatar-wrapper {
-            width: 72px;
-            height: 72px;
-            margin: 0;
+            width: 80px;
+            height: 80px;
             border-radius: 18px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+            border: 2px solid rgba(255, 255, 255, 0.08);
           }
         }
 
         .logout-btn {
-          margin-top: 0;
+          display: none;
         }
       }
 
@@ -261,8 +258,6 @@
         justify-content: center;
 
         .avatar-block {
-          justify-content: center;
-
           .avatar-wrapper {
             width: 80px;
             height: 80px;
@@ -295,12 +290,6 @@
         .content-section {
           margin-top: 24px;
 
-          .section-title {
-            margin-bottom: 12px;
-            font-size: 11px;
-            letter-spacing: 0.08em;
-          }
-
           .info-card {
             padding: 16px;
             border-radius: 16px;
@@ -309,6 +298,12 @@
           .mini-card {
             padding: 16px;
             border-radius: 16px;
+          }
+
+          .section-title {
+            margin-bottom: 12px;
+            font-size: 11px;
+            letter-spacing: 0.08em;
           }
 
           .info-row-grid {

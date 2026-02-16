@@ -193,8 +193,8 @@
 @include sm-down {
   .sidebar {
     position: fixed;
-    left: 0;
-    top: 0;
+    left: -8px;
+    top: -10px;
     bottom: 0;
     height: 100vh;
     z-index: 1000;
@@ -292,8 +292,8 @@
 
       .sidebar-header {
         position: absolute;
-        top: 18px;
-        left: 18px;
+        top: -2px;
+        left: -3px;
         justify-content: flex-start;
       }
     }
@@ -331,7 +331,7 @@
   background: white;
   padding: 28px;
   border-radius: 16px;
-  width: 340px;
+  width: 180px;
   text-align: center;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
 }

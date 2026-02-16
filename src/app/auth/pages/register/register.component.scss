@@ -11,6 +11,7 @@
 
 .register-container {
   @include page-container();
+  background: $color-dark-bg;
 }
 
 .auth-wrapper {
