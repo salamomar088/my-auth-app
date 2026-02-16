@@ -141,3 +141,77 @@
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
+
+/* Main page wrapper (login/register pages etc.) */
+@mixin page-container($bg: $color-surface-muted) {
+  min-height: 100vh;
+  width: 100%;
+  padding: 1rem;
+  background: $bg;
+  display: flex;
+  align-items: center;
+}
+
+/* Auth wrapper card */
+@mixin auth-wrapper-base {
+  @include unselectable;
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+  background: $color-surface;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-card;
+  display: flex;
+  overflow: hidden;
+
+  @include md-down {
+    flex-direction: column;
+  }
+}
+
+/* Left gradient side (login/register) */
+@mixin auth-left-panel {
+  position: relative;
+  flex: 1;
+  background: linear-gradient(135deg, $color-primary, $color-primary-soft);
+  color: white;
+  @include flex-center;
+  overflow: hidden;
+
+  @include md-down {
+    min-height: 200px;
+    padding: 2rem 1.5rem;
+  }
+
+  @include sm-down {
+    min-height: 180px;
+    padding: 1.25rem 1rem;
+  }
+}
+
+/* Right form side */
+@mixin auth-right-panel {
+  flex: 1;
+  padding: 3rem;
+
+  @include md-down {
+    padding: 2rem;
+  }
+
+  @include sm-down {
+    padding: 1.25rem 1rem;
+  }
+}
+
+/* Center card */
+@mixin card-center($max: 360px) {
+  width: 100%;
+  max-width: $max;
+  margin: auto;
+}
+
+/* Scroll container */
+@mixin scroll-y($max: 420px) {
+  max-height: $max;
+  overflow-y: auto;
+}

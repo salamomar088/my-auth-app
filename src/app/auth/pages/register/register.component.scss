@@ -3,52 +3,20 @@
 @import '../../../shared/styles/animations';
 
 .register-container {
-  min-height: 100vh;
-  padding: 1rem;
-  background: $color-surface-muted;
-  display: flex;
-  align-items: center;
+  @include page-container();
 }
 
 .auth-wrapper {
-  @include unselectable;
-  width: 100%;
-  max-width: 900px;
+  @include auth-wrapper-base;
   position: relative;
-  margin: auto;
-  background: $color-surface;
-  border-radius: $radius-lg;
-  box-shadow: $shadow-card;
-  display: flex;
-  overflow: hidden;
-
-  @include md-down {
-    flex-direction: column;
-  }
 }
 
 .auth-left {
-  position: relative;
-  flex: 1;
-  background: linear-gradient(135deg, $color-primary, $color-primary-soft);
+  @include auth-left-panel;
   transform: translateZ(0);
-  color: white;
-  @include flex-center;
-  overflow: hidden;
 
   &::after {
     display: none;
-  }
-
-  @include md-down {
-    min-height: 200px;
-    padding: 2rem 1.5rem;
-    border: none;
-  }
-
-  @include sm-down {
-    min-height: 180px;
-    padding: 1.25rem 1rem;
   }
 }
 
@@ -99,26 +67,13 @@
 }
 
 .auth-right {
-  flex: 1;
-  padding: 3rem;
+  @include auth-right-panel;
   background: $color-surface;
   position: relative;
-
-  @include md-down {
-    padding: 2rem;
-    border: none;
-  }
-
-  @include sm-down {
-    padding: 1.25rem 1rem;
-    border: none;
-  }
 }
 
 .card {
-  width: 100%;
-  max-width: 360px;
-  margin: auto;
+  @include card-center();
 }
 
 .avatar-wrapper {
