@@ -1,5 +1,6 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { finalize } from 'rxjs/operators';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { finalize, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 
 import { AuthService } from '../../core/services/auth.service';
 import { AlertService } from '../../core/services/alert/alert';
@@ -13,7 +14,7 @@ import { User, UsersResponse } from '../../core/interfaces/user.interface';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnDestroy {
   users: User[] = [];
 
   loading = true;
@@ -26,6 +27,9 @@ export class UsersComponent implements OnInit {
 
   currentUserId: number | null = null;
 
+  private destroy$ = new Subject<void>();
+  private search$ = new Subject<{ name: string; created_after: string }>();
+
   constructor(
     private authService: AuthService,
     private cdr: ChangeDetectorRef,
@@ -35,7 +39,31 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUserId = this.storage.getUserId();
-    this.loadUsers();
+
+    this.search$
+      .pipe(
+        debounceTime(450),
+        distinctUntilChanged((a, b) => a.name === b.name && a.created_after === b.created_after),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(() => {
+        this.loadUsers();
+      });
+
+    // initial load
+    this.triggerSearch();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  private triggerSearch(): void {
+    this.search$.next({
+      name: this.searchTerm.trim(),
+      created_after: this.createdAfter,
+    });
   }
 
   loadUsers(): void {
@@ -44,7 +72,7 @@ export class UsersComponent implements OnInit {
 
     this.authService
       .getAllUsers({
-        name: this.searchTerm,
+        name: this.searchTerm.trim(),
         created_after: this.createdAfter,
       })
       .pipe(
@@ -66,18 +94,18 @@ export class UsersComponent implements OnInit {
 
           this.error = message;
           this.users = [];
-
           this.alert.error(message);
         },
       });
   }
 
-  toggleUser(id: number): void {
-    this.expandedUserId = this.expandedUserId === id ? null : id;
+  // call this from input change
+  onSearchChange(): void {
+    this.triggerSearch();
   }
 
-  onSearchChange(): void {
-    this.loadUsers();
+  toggleUser(id: number): void {
+    this.expandedUserId = this.expandedUserId === id ? null : id;
   }
 
   trackById(_: number, user: User): number {
