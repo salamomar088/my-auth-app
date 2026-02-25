@@ -50,7 +50,6 @@ export class UsersComponent implements OnInit, OnDestroy {
         this.loadUsers();
       });
 
-    // initial load
     this.triggerSearch();
   }
 
@@ -99,7 +98,6 @@ export class UsersComponent implements OnInit, OnDestroy {
       });
   }
 
-  // call this from input change
   onSearchChange(): void {
     this.triggerSearch();
   }
