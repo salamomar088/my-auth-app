@@ -15,8 +15,10 @@
   position: relative;
   padding: 16px 10px;
   box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.04);
-  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-    min-width 0.35s cubic-bezier(0.16, 1, 0.3, 1), flex-basis 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    min-width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    flex-basis 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   @include unselectable;
 
   &.open {
@@ -117,7 +119,10 @@
     border-radius: 14px;
     color: $color-text-muted;
     text-decoration: none;
-    transition: transform 0.18s ease, background 0.25s ease, box-shadow 0.25s ease;
+    transition:
+      transform 0.18s ease,
+      background 0.25s ease,
+      box-shadow 0.25s ease;
     @include hover-lift(-2px);
     @include fill-rounded-hover(rgba(255, 255, 255, 0.12), white, 0.35s, left);
 
@@ -139,7 +144,9 @@
     &.active {
       background: linear-gradient(135deg, #6a38c2, #22d3ee);
       color: white;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+      box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.35),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.06);
     }
   }
 
@@ -320,39 +327,109 @@
 .logout-modal {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  z-index: 9999;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+
+  background: rgba(8, 12, 25, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  animation: message-fade-in 0.22s ease both;
+
+  padding: 16px;
 }
 
 .modal-card {
-  background: white;
-  padding: 28px;
-  border-radius: 16px;
-  width: 180px;
+  position: relative;
+  width: min(360px, 92vw);
+  padding: 22px 20px;
+  border-radius: $radius-lg;
   text-align: center;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+
+  @include glass;
+
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+
+  animation: message-fade-in 0.22s ease both;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  overflow: hidden;
+
+  &::after {
+    @include sidebar-sheen;
+    opacity: 0.9;
+  }
+
+  h3,
+  .modal-title {
+    @include text-lg;
+    color: rgba(255, 255, 255, 0.92);
+    margin: 0 0 6px;
+  }
+
+  p,
+  .modal-text {
+    @include text-sm;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+  }
 }
 
 .modal-actions {
-  margin-top: 20px;
+  margin-top: 16px;
   display: flex;
   gap: 10px;
+
+  @include sm-down {
+    flex-direction: column;
+  }
+}
+
+.btn-cancel,
+.btn-danger {
+  flex: 1;
+  border: none;
+  border-radius: $radius-pill;
+  padding: 12px 14px;
+  cursor: pointer;
+
+  @include text-sm;
+
+  transition:
+    transform $transition-fast,
+    box-shadow $transition-fast,
+    background $transition-fast,
+    border $transition-fast,
+    color $transition-fast;
+
+  @include hover-lift(-2px, $shadow-soft);
+
+  &:active {
+    transform: translateY(0) scale(0.98);
+  }
 }
 
 .btn-cancel {
-  flex: 1;
-  padding: 10px;
-  border-radius: 8px;
-  background: #eee;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
 }
 
 .btn-danger {
-  flex: 1;
-  padding: 10px;
-  border-radius: 8px;
-  background: #e53935;
+  background: linear-gradient(135deg, $color-primary, $color-primary-soft);
   color: white;
+
+  box-shadow: 0 14px 30px rgba(106, 56, 194, 0.25);
+
+  &:hover {
+    box-shadow: 0 18px 38px rgba(106, 56, 194, 0.32);
+  }
 }
