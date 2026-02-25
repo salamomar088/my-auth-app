@@ -1,90 +1,77 @@
 @if (!loading && vm) {
-
-<div class="dashboard">
-  <div class="dashboard-inner">
-    <div class="dashboard-card dashboard-card--big dashboard-glow">
-      <div class="dashboard-card-header dashboard-card-header--between mb-md">
-        <div>
-          <h2 class="text-lg fw-semibold">Registrations Overview</h2>
-          <p class="text-sm text-muted">Users registrations by day</p>
-        </div>
-
-        <div class="dashboard-metric text-right">
-          <div class="metric-value text-xl fw-bold">{{ vm.totalUsers }}</div>
-          <div class="metric-label text-xs text-muted">Total Users</div>
-        </div>
-      </div>
-
-      <div class="dashboard-chart">
-        <apx-chart
-          [series]="chartOptions.series"
-          [chart]="chartOptions.chart"
-          [xaxis]="chartOptions.xaxis!"
-          [dataLabels]="chartOptions.dataLabels!"
-          [stroke]="chartOptions.stroke!"
-          [title]="chartOptions.title!"
-        ></apx-chart>
-      </div>
-    </div>
-
-    <div class="dashboard-grid">
-      <div class="dashboard-card dashboard-card--small dashboard-glass">
-        <div class="dashboard-card-header dashboard-card-header--between mb-sm">
-          <h3 class="text-md fw-semibold">Total Users</h3>
-          <span class="metric-value text-lg fw-bold">{{ vm.totalUsers }}</span>
+  <div class="dashboard">
+    <div class="dashboard-inner">
+      <div class="dashboard-card dashboard-card--big dashboard-glow">
+        <div class="dashboard-card-header dashboard-card-header--between mb-md">
+          <div>
+            <h2 class="text-lg fw-semibold">Registrations Overview</h2>
+            <p class="text-sm text-muted">Users registrations by day</p>
+          </div>
         </div>
 
         <div class="dashboard-chart">
           <apx-chart
-            [series]="smallUsersChart.series"
-            [chart]="smallUsersChart.chart"
-            [plotOptions]="smallUsersChart.plotOptions!"
-            [fill]="smallUsersChart.fill!"
-            [labels]="smallUsersChart.labels!"
+            [series]="chartOptions.series"
+            [chart]="chartOptions.chart"
+            [xaxis]="chartOptions.xaxis!"
+            [dataLabels]="chartOptions.dataLabels!"
+            [stroke]="chartOptions.stroke!"
+            [title]="chartOptions.title!"
           ></apx-chart>
         </div>
       </div>
 
-      <div class="dashboard-card dashboard-card--small dashboard-glass">
-        <div class="dashboard-card-header dashboard-card-header--between mb-sm">
-          <h3 class="text-md fw-semibold">Visits Today</h3>
-          <span class="metric-value text-lg fw-bold">{{ vm.visitsToday }}</span>
+      <div class="dashboard-grid">
+        <div class="dashboard-card dashboard-card--small dashboard-glass">
+          <div class="dashboard-card-header dashboard-card-header--between mb-sm">
+            <h3 class="text-md fw-semibold">Total Users</h3>
+          </div>
+
+          <div class="dashboard-chart">
+            <div class="total-users-only-number text-2xl fw-bold">
+              {{ vm.totalUsers }}
+            </div>
+          </div>
         </div>
 
-        <div class="dashboard-chart">
-          <apx-chart
-            [series]="visitsChart.series"
-            [chart]="visitsChart.chart"
-            [xaxis]="visitsChart.xaxis!"
-            [plotOptions]="visitsChart.plotOptions!"
-            [dataLabels]="visitsChart.dataLabels!"
-            [grid]="visitsChart.grid!"
-            [fill]="visitsChart.fill!"
-          ></apx-chart>
-        </div>
-      </div>
+        <div class="dashboard-card dashboard-card--small dashboard-glass">
+          <div class="dashboard-card-header dashboard-card-header--between mb-sm">
+            <h3 class="text-md fw-semibold">Visits Today</h3>
+            <span class="metric-value text-lg fw-bold">{{ vm.visitsToday }}</span>
+          </div>
 
-      <div class="dashboard-card dashboard-card--small dashboard-glass">
-        <div class="dashboard-card-header dashboard-card-header--between mb-sm">
-          <h3 class="text-md fw-semibold">Growth</h3>
-          <span class="metric-value text-lg fw-bold">{{ vm.usersThisWeek }}</span>
+          <div class="dashboard-chart">
+            <apx-chart
+              [series]="visitsChart.series"
+              [chart]="visitsChart.chart"
+              [xaxis]="visitsChart.xaxis!"
+              [plotOptions]="visitsChart.plotOptions!"
+              [dataLabels]="visitsChart.dataLabels!"
+              [grid]="visitsChart.grid!"
+              [fill]="visitsChart.fill!"
+            ></apx-chart>
+          </div>
         </div>
 
-        <div class="dashboard-chart">
-          <apx-chart
-            [series]="growthChart.series"
-            [chart]="growthChart.chart"
-            [xaxis]="growthChart.xaxis!"
-            [stroke]="growthChart.stroke!"
-            [plotOptions]="growthChart.plotOptions!"
-            [dataLabels]="growthChart.dataLabels!"
-            [grid]="growthChart.grid!"
-            [fill]="growthChart.fill!"
-          ></apx-chart>
+        <div class="dashboard-card dashboard-card--small dashboard-glass">
+          <div class="dashboard-card-header dashboard-card-header--between mb-sm">
+            <h3 class="text-md fw-semibold">Growth</h3>
+          </div>
+
+          <div class="dashboard-chart">
+            <apx-chart
+              [series]="growthChart.series"
+              [chart]="growthChart.chart"
+              [xaxis]="growthChart.xaxis!"
+              [plotOptions]="growthChart.plotOptions!"
+              [dataLabels]="growthChart.dataLabels!"
+              [grid]="growthChart.grid!"
+              [fill]="growthChart.fill!"
+              [tooltip]="growthChart.tooltip!"
+            ></apx-chart>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-
 }

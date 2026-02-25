@@ -28,4 +28,5 @@ export type ChartOptions = {
   grid?: ApexGrid;
 
   labels?: string[];
+  tooltip?: ApexTooltip;
 };

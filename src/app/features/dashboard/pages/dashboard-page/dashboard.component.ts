@@ -2,7 +2,11 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { forkJoin } from 'rxjs';
 
 import { DashboardService } from '../../../../core/services/dashboard-service/dashboardService';
-import { DashboardVm } from '../../../../core/interfaces/dashboard.interface';
+import {
+  DashboardVm,
+  DashboardAreaChartResponse,
+  DashboardRegistrationsLast7DaysResponse,
+} from '../../../../core/interfaces/dashboard.interface';
 import { ChartOptions } from '../../../../core/interfaces/chart.interface';
 import { AlertService } from '../../../../core/services/alert/alert';
 
@@ -16,35 +20,61 @@ export class DashboardComponent implements OnInit {
   vm!: DashboardVm;
   loading = true;
   error = '';
-  chartOptions!: ChartOptions;
-  smallUsersChart!: ChartOptions;
-  visitsChart!: ChartOptions;
-  growthChart!: ChartOptions;
+
+  chartOptions!: ChartOptions; // Registrations (Area)
+  visitsChart!: ChartOptions; // Visits (Bar)
+  growthChart!: ChartOptions; // Growth (Bar)
 
   constructor(
     private dashboardService: DashboardService,
     private alertService: AlertService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
     forkJoin({
-      stats: this.dashboardService.buildDashboard(),
-      visit: this.dashboardService.getVisits(),
+      total: this.dashboardService.getTotalUsers(),
+      reg7: this.dashboardService.getRegistrationsLast7Days(),
+      visits7: this.dashboardService.getVisitsLast7Days(),
+      week: this.dashboardService.getUsersThisWeek(),
+      month: this.dashboardService.getUsersThisMonth(),
     }).subscribe({
-      next: ({ stats, visit }) => {
-        this.vm = {
-          ...stats,
-          visitsToday: visit.visits,
-        };
+      next: ({ total, reg7, visits7, week, month }) => {
+        const registrationsRes = reg7 as DashboardRegistrationsLast7DaysResponse;
 
-        this.chartOptions = {
+        const registrationsChart = {
+          status: registrationsRes.status,
+          categories: registrationsRes.last7DaysLabels ?? [],
           series: [
             {
               name: 'Registrations',
-              data: this.vm.registrationsByDay.map((d) => d.count),
+              data: registrationsRes.registrationsLast7Days ?? [],
             },
           ],
+        };
+
+        const visitsChartData = visits7 as DashboardAreaChartResponse;
+
+        const todayVisits =
+          visitsChartData.series?.[0]?.data?.[visitsChartData.series[0].data.length - 1] ?? 0;
+
+        this.vm = {
+          totalUsers: total.totalUsers,
+
+          visitsToday: todayVisits,
+
+          recentUsers: [],
+          registrationsByDay: [],
+
+          registrationsLast7Days: registrationsChart.series[0].data,
+          last7DaysLabels: registrationsChart.categories,
+
+          usersThisWeek: week.usersThisWeek ?? 0,
+          usersThisMonth: month.usersThisMonth ?? 0,
+        };
+
+        this.chartOptions = {
+          series: registrationsChart.series,
           chart: {
             type: 'area',
             height: 320,
@@ -59,7 +89,7 @@ export class DashboardComponent implements OnInit {
           },
           colors: ['#7c3aed'],
           xaxis: {
-            categories: this.vm.registrationsByDay.map((d) => d.day),
+            categories: registrationsChart.categories,
             axisBorder: { show: false },
             axisTicks: { show: false },
           },
@@ -93,56 +123,13 @@ export class DashboardComponent implements OnInit {
           title: {},
         } as ChartOptions;
 
-        this.smallUsersChart = {
-          series: [this.vm.totalUsers],
-          chart: {
-            type: 'radialBar',
-            height: 240,
-            toolbar: { show: false },
-          },
-          plotOptions: {
-            radialBar: {
-              hollow: { size: '72%' },
-              track: {
-                background: 'rgba(255,255,255,0.05)',
-              },
-              dataLabels: {
-                name: { show: false },
-                value: {
-                  formatter: () => this.vm.totalUsers.toString(),
-                  fontSize: '30px',
-                  fontWeight: 700 as any,
-                  color: '#1dbbd3',
-                },
-              },
-            },
-          },
-          fill: {
-            type: 'gradient',
-            gradient: {
-              shade: 'dark',
-              gradientToColors: ['#cc00ff'],
-              stops: [0, 100],
-            },
-          },
-          labels: ['Users'],
-        } as unknown as ChartOptions;
-
         this.visitsChart = {
-          series: [
-            {
-              name: 'Visits',
-              data: [this.vm.visitsToday],
-            },
-          ],
+          series: visitsChartData.series,
           chart: {
             type: 'bar',
             height: 180,
             toolbar: { show: false },
-            animations: {
-              enabled: true,
-              speed: 600,
-            },
+            animations: { enabled: true, speed: 600 },
           },
           plotOptions: {
             bar: {
@@ -151,7 +138,7 @@ export class DashboardComponent implements OnInit {
             },
           },
           xaxis: {
-            categories: ['Today'],
+            categories: visitsChartData.categories,
             labels: { style: { colors: '#ffffff' } },
           },
           grid: {
@@ -165,63 +152,46 @@ export class DashboardComponent implements OnInit {
               stops: [0, 100],
             },
           },
-          tooltip: {
-            theme: 'dark',
-          },
+          tooltip: { theme: 'dark' },
           dataLabels: { enabled: false },
         } as unknown as ChartOptions;
 
         this.growthChart = {
           series: [
             {
-              name: 'This Week',
-              type: 'column',
-              data: [this.vm.usersThisWeek],
-            },
-            {
-              name: 'This Month',
-              type: 'line',
-              data: [this.vm.usersThisMonth],
+              name: 'Users',
+              data: [this.vm.usersThisWeek, this.vm.usersThisMonth],
             },
           ],
           chart: {
-            type: 'line',
+            type: 'bar',
             height: 220,
             toolbar: { show: false },
-          },
-          stroke: {
-            width: [0, 3],
-            curve: 'smooth',
+            animations: { enabled: true, speed: 600 },
           },
           plotOptions: {
             bar: {
-              borderRadius: 7,
+              borderRadius: 8,
               columnWidth: '45%',
             },
           },
-          grid: {
-            borderColor: 'rgba(255,255,255,0.05)',
-          },
           xaxis: {
-            categories: ['Users'],
+            categories: ['This Week', 'This Month'],
             labels: { style: { colors: '#ffffff' } },
           },
-          yaxis: {
-            min: 0,
-            labels: { style: { colors: '#ffffff' } },
+          grid: {
+            borderColor: 'rgba(255,255,255,0.06)',
           },
           fill: {
             type: 'gradient',
             gradient: {
               shade: 'dark',
-              gradientToColors: ['#cc66ff', '#22d3ee'],
+              gradientToColors: ['#cc00ff'],
               stops: [0, 100],
             },
           },
-          tooltip: {
-            theme: 'dark',
-          },
           dataLabels: { enabled: false },
+          tooltip: { theme: 'dark' },
         } as unknown as ChartOptions;
 
         setTimeout(() => {
@@ -231,7 +201,8 @@ export class DashboardComponent implements OnInit {
 
         this.loading = false;
       },
-      error: () => {
+      error: (err) => {
+        console.error('Dashboard load failed:', err);
         this.alertService.error('Failed to load dashboard');
         this.loading = false;
       },

@@ -13,7 +13,10 @@ import { UserProfile } from '../interfaces/profile.interface';
 export class AuthService {
   private api = 'http://localhost:8000/api/v1';
 
-  constructor(private http: HttpClient, private storage: LocalStorageService) {}
+  constructor(
+    private http: HttpClient,
+    private storage: LocalStorageService,
+  ) {}
 
   register(data: FormData): Observable<RegisterResponse> {
     return this.http.post<RegisterResponse>(`${this.api}/auth/register`, data);
@@ -25,7 +28,7 @@ export class AuthService {
         if (res.token) {
           this.storage.setToken(res.token);
         }
-      })
+      }),
     );
   }
 
