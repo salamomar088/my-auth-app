@@ -20,15 +20,7 @@ export class LocalStorageService {
   }
 
   isAuthenticated(): boolean {
-    const token = this.getToken();
-    if (!token) return false;
-
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      return payload.exp * 1000 > Date.now();
-    } catch {
-      return false;
-    }
+    return !!this.getToken();
   }
   setUserId(id: number): void {
     localStorage.setItem(this.USER_ID_KEY, String(id));

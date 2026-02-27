@@ -23,13 +23,15 @@ export class AuthService {
   }
 
   login(credentials: LoginRequest): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.api}/auth/login`, credentials).pipe(
-      tap((res) => {
-        if (res.token) {
-          this.storage.setToken(res.token);
-        }
-      }),
-    );
+    return this.http
+      .post<LoginResponse>(`${this.api}/auth/login`, credentials, {
+        withCredentials: true,
+      })
+      .pipe(
+        tap((res) => {
+          if (res.token) this.storage.setToken(res.token);
+        }),
+      );
   }
 
   getProfile(): Observable<UserProfile> {
@@ -60,5 +62,20 @@ export class AuthService {
 
   logout(): void {
     this.storage.removeToken();
+  }
+  refreshAccessToken(): Observable<{ status: number; token: string }> {
+    return this.http.post<{ status: number; token: string }>(
+      `${this.api}/auth/refresh`,
+      {},
+      { withCredentials: true },
+    );
+  }
+
+  logoutServer(): Observable<{ status: number; message: string }> {
+    return this.http.post<{ status: number; message: string }>(
+      `${this.api}/auth/logout`,
+      {},
+      { withCredentials: true },
+    );
   }
 }
