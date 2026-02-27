@@ -83,14 +83,14 @@
   }
 }
 
-/* Perfect centering (used for auth page layout) */
+/* centering (used for auth page layout) */
 @mixin flex-center {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Space between items (headers, panels) */
+/* Space between items headers and panels */
 @mixin flex-between {
   display: flex;
   align-items: center;
@@ -110,7 +110,9 @@
   border-radius: $radius-md;
   border: 1px solid $color-border;
   background: $color-surface-muted;
-  transition: border $transition-fast, box-shadow $transition-fast;
+  transition:
+    border $transition-fast,
+    box-shadow $transition-fast;
 
   &:focus {
     border-color: $color-primary;
@@ -124,7 +126,9 @@
   border-radius: $radius-pill;
   padding: 0.9rem 2.5rem;
   font-weight: $fw-semibold;
-  transition: transform $transition-fast, box-shadow $transition-fast;
+  transition:
+    transform $transition-fast,
+    box-shadow $transition-fast;
 
   &:hover {
     transform: translateY(-2px);
@@ -231,7 +235,9 @@
   color: white;
   cursor: pointer;
   overflow: hidden;
-  transition: transform 0.2s ease, gap 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    transform 0.2s ease,
+    gap 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 
   img {
     width: 18px;
@@ -247,7 +253,9 @@
 
     span {
       display: inline-block;
-      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease;
+      transition:
+        transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        color 0.25s ease;
     }
   }
 

@@ -360,7 +360,6 @@
   overflow: hidden;
 
   &::after {
-    @include sidebar-sheen;
     opacity: 0.9;
   }
 
